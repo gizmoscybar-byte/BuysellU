@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuySellU</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+    }
+
+    .search-area {
+      padding: 18px;
+      background: white;
+    }
+
+    .search {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 15px;
+      background: white;
+    }
+
+    .category {
+      min-width: 110px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f1f2f4;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .sell {
+      margin: 18px;
+      padding: 16px;
+      border: 0;
+      width: calc(100% - 36px);
+      border-radius: 10px;
+      background: #111827;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .section {
+      padding: 18px;
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .product-image {
+      height: 130px;
+      background: #e5e7eb;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .product h3 {
+      margin: 10px 0 5px;
+      font-size: 16px;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .location {
+      color: #666;
+      font-size: 13px;
+    }
+
+    nav {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      justify-content: space-around;
+      background: white;
+      border-top: 1px solid #ddd;
+      padding: 12px 5px;
+    }
+
+    nav div {
+      text-align: center;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>BuySellU</h1>
+    <p>Buy • Sell • Discover</p>
+  </header>
+
+  <div class="search-area">
+    <input class="search" type="text" placeholder="Search for products...">
+  </div>
+
+  <div class="categories">
+    <div class="category">📱 Mobiles</div>
+    <div class="category">💻 Electronics</div>
+    <div class="category">🚗 Cars</div>
+    <div class="category">🏍️ Bikes</div>
+    <div class="category">👕 Fashion</div>
+    <div class="category">🏠 Home</div>
+  </div>
+
+  <button class="sell">＋ Sell Something</button>
+
+  <section class="section">
+    <h
