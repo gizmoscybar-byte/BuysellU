@@ -301,6 +301,13 @@ function displayListings(){
       <div class="price">₹${item.price}</div>
       <p><b>${item.category}</b></p>
       <p>👤 Seller: ${localStorage.getItem("buyselluProfileName") || "Unknown Seller"}</p>
+      <button onclick="contactSeller()" style="width:100%;padding:12px;margin-top:10px;">
+  📞 Contact Seller
+</button>
+
+<button onclick="chatSeller()" style="width:100%;padding:12px;margin-top:10px;">
+  💬 Chat with Seller
+</button>
       ${localStorage.getItem("buyselluProfilePhoto") ? `<img src="${localStorage.getItem("buyselluProfilePhoto")}" style="width:45px;height:45px;border-radius:50%;">` : ""}
       <p class="location">📍 ${item.location}</p>
       <p>${item.description}</p>
@@ -309,7 +316,13 @@ function displayListings(){
     box.appendChild(card);
   });
 }
+function contactSeller(){
+  alert("Contact Seller feature will be connected next.");
+}
 
+function chatSeller(){
+  alert("Chat feature will be connected next.");
+}
 function searchListings(){
 
   const search=
