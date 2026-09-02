@@ -300,6 +300,7 @@ function displayListings(){
       <h3>${item.name}</h3>
       <div class="price">₹${item.price}</div>
       <p><b>${item.category}</b></p>
+      <p>👤 Seller: ${localStorage.getItem("buyselluProfileName") || "Unknown Seller"}</p>
       <p class="location">📍 ${item.location}</p>
       <p>${item.description}</p>
     `;
