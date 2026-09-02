@@ -421,17 +421,20 @@ function chatSeller(){
   }
 function searchListings(){
 
-  const search=
-    document.getElementById("search").value.toLowerCase();
+  const search =
+    document.getElementById("search").value.toLowerCase().trim();
 
-  document.querySelectorAll(".listing").forEach(card=>{
+  document.querySelectorAll(".listing").forEach(card => {
 
-    card.style.display=
-      card.innerText.toLowerCase().includes(search)
+    const text = card.innerText.toLowerCase();
+
+    card.style.display =
+      text.includes(search)
       ? "block"
       : "none";
 
   });
+
 }
 
 displayListings();
