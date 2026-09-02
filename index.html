@@ -353,6 +353,8 @@ function signupUser() {
 </label>
 
 <input id="profilePhoto" type="file" accept="image/*" style="margin-top:8px;">
+    <img id="profilePreview"
+     style="display:none; width:100px; height:100px; object-fit:cover; border-radius:50%; margin-top:15px;">
   <input id="profileName" type="text" placeholder="Your Name"
     style="width:100%; box-sizing:border-box; padding:13px; margin:8px 0;">
 
@@ -391,6 +393,21 @@ function saveProfile() {
 
   alert("Profile saved successfully!");
 }
+  document.getElementById("profilePhoto").addEventListener("change", function(event) {
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const preview = document.getElementById("profilePreview");
+      preview.src = e.target.result;
+      preview.style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
+  }
+});
 </script>
 </body>
 </html>ka.
