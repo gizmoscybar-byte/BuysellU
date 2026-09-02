@@ -209,14 +209,62 @@ body{
   color:#e65100 !important;
   font-weight:bold;
 }
+  .main-header{
+  background:#1976d2;
+  color:white;
+  padding:18px 15px;
+  text-align:center;
+}
+
+.top-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.top-bar h1{
+  margin:0;
+  font-size:28px;
+}
+
+.menu-icon{
+  font-size:28px;
+}
+
+.header-icons{
+  display:flex;
+  gap:14px;
+  font-size:22px;
+}
+
+.main-header p{
+  margin:8px 0 0;
+  color:white;
+  font-size:14px;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>BuySellU</h1>
-<p>Buy • Sell • Discover</p>
+<header class="main-header">
+
+  <div class="top-bar">
+
+    <div class="menu-icon">☰</div>
+
+    <h1>BuySellU</h1>
+
+    <div class="header-icons">
+      <span>♡</span>
+      <span>🔔</span>
+      <span>👤</span>
+    </div>
+
+  </div>
+
+  <p>Buy • Sell • Discover</p>
+
 </header>
 
 <div class="container">
