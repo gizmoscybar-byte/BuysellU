@@ -40,17 +40,29 @@ header p{margin:7px 0 0;color:#ccc}
 }
 
 .categories{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding:10px 5px 15px;
+  margin:0 -5px 15px;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
 }
 
 .category{
+  min-width:75px;
   background:white;
-  padding:20px;
+  padding:10px 8px;
   border-radius:12px;
   text-align:center;
   border:1px solid #eee;
+  font-size:13px;
+  white-space:nowrap;
+  cursor:pointer;
+  flex-shrink:0;
 }
 
 .sell-btn{
