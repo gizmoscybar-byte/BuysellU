@@ -177,7 +177,8 @@ oninput="searchListings()">
 <textarea id="description" rows="4"
 placeholder="Describe your product"></textarea>
 
-<input id="photo" type="file" accept="image/*">
+<label for="photo" class="photo-btn">📷 Add Photo</label>
+<input id="photo" type="file" accept="image/*" capture="environment" style="display:none;">
 
 <button onclick="postListing()">Post Listing</button>
 
