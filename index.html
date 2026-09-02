@@ -345,5 +345,48 @@ function signupUser() {
   alert("Account creation system will be connected next.");
 }
 </script>
+  <div id="profileSection" style="display:none; background:white; margin-top:25px; padding:20px; border-radius:12px;">
+
+  <h2>👤 My Profile</h2>
+
+  <input id="profileName" type="text" placeholder="Your Name"
+    style="width:100%; box-sizing:border-box; padding:13px; margin:8px 0;">
+
+  <input id="profileLocation" type="text" placeholder="Your Location"
+    style="width:100%; box-sizing:border-box; padding:13px; margin:8px 0;">
+
+  <button onclick="saveProfile()"
+    style="width:100%; padding:14px; margin-top:10px;">
+    💾 Save Profile
+  </button>
+
+</div>
+
+<button onclick="showProfile()"
+  style="width:100%; padding:14px; margin-top:15px;">
+  👤 My Profile
+</button>
+
+<script>
+function showProfile() {
+  const profile = document.getElementById("profileSection");
+
+  if (profile.style.display === "none" || profile.style.display === "") {
+    profile.style.display = "block";
+  } else {
+    profile.style.display = "none";
+  }
+}
+
+function saveProfile() {
+  const name = document.getElementById("profileName").value;
+  const location = document.getElementById("profileLocation").value;
+
+  localStorage.setItem("buyselluProfileName", name);
+  localStorage.setItem("buyselluProfileLocation", location);
+
+  alert("Profile saved successfully!");
+}
+</script>
 </body>
 </html>ka.
