@@ -388,10 +388,14 @@ function showProfile() {
 function saveProfile() {
   const name = document.getElementById("profileName").value;
   const location = document.getElementById("profileLocation").value;
+  const preview = document.getElementById("profilePreview");
 
+  if (preview.src && preview.style.display !== "none") {
+    localStorage.setItem("buyselluProfilePhoto", preview.src);
+  }
   localStorage.setItem("buyselluProfileName", name);
   localStorage.setItem("buyselluProfileLocation", location);
-
+displayListings();
   alert("Profile saved successfully!");
 }
   document.getElementById("profilePhoto").addEventListener("change", function(event) {
