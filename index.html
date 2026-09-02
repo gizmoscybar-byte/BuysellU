@@ -1,362 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BuySellU</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuySellU</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f6f8;
-      color: #222;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f6f8;
+  color:#222;
+}
 
-    header {
-      background: #111;
-      color: white;
-      padding: 22px;
-      text-align: center;
-    }
+header{
+  background:#111;
+  color:white;
+  padding:22px;
+  text-align:center;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-    }
+header h1{margin:0;font-size:30px}
+header p{margin:7px 0 0;color:#ccc}
 
-    header p {
-      margin: 7px 0 0;
-      color: #ccc;
-    }
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:25px 18px;
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 25px 18px;
-    }
+.search{
+  width:100%;
+  padding:15px;
+  box-sizing:border-box;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:16px;
+  margin-bottom:20px;
+}
 
-    .search {
-      width: 100%;
-      padding: 15px;
-      box-sizing: border-box;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
+.categories{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
 
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
+.category{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  border:1px solid #eee;
+}
 
-    .category {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid #eee;
-      font-size: 16px;
-    }
+.sell-btn{
+  width:100%;
+  margin-top:25px;
+  padding:17px;
+  border:0;
+  border-radius:12px;
+  background:#111;
+  color:white;
+  font-size:18px;
+}
 
-    .sell-btn {
-      width: 100%;
-      margin-top: 25px;
-      padding: 17px;
-      border: none;
-      border-radius: 12px;
-      background: #111;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-    }
+#sellForm{
+  display:none;
+  background:white;
+  margin-top:25px;
+  padding:20px;
+  border-radius:12px;
+}
 
-    #sellForm {
-      display: none;
-      background: white;
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 12px;
-    }
+#sellForm input,
+#sellForm textarea,
+#sellForm select{
+  width:100%;
+  box-sizing:border-box;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
 
-    #sellForm input,
-    #sellForm textarea,
-    #sellForm select {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 13px;
-      margin: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 15px;
-    }
+#sellForm button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:0;
+  border-radius:8px;
+  background:#111;
+  color:white;
+  font-size:16px;
+}
 
-    #sellForm button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      background: #111;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+#listings{
+  margin-top:30px;
+}
 
-    #listings {
-      margin-top: 30px;
-    }
+.listing{
+  background:white;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:12px;
+  border:1px solid #eee;
+}
 
-    .listing {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      border: 1px solid #eee;
-    }
+.listing img{
+  width:100%;
+  max-height:300px;
+  object-fit:cover;
+  border-radius:10px;
+}
 
-    .listing img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 12px;
-    }
+.price{
+  font-size:20px;
+  font-weight:bold;
+}
 
-    .listing h3 {
-      margin: 5px 0;
-    }
-
-    .price {
-      font-size: 20px;
-      font-weight: bold;
-      margin: 8px 0;
-    }
-
-    .location {
-      color: #666;
-    }
-  </style>
+.location{
+  color:#666;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>BuySellU</h1>
-  <p>Buy • Sell • Discover</p>
+<h1>BuySellU</h1>
+<p>Buy • Sell • Discover</p>
 </header>
 
 <div class="container">
 
-  <input
-    class="search"
-    id="search"
-    type="text"
-    placeholder="Search for products..."
-    oninput="searchListings()"
-  >
+<input
+class="search"
+id="search"
+type="text"
+placeholder="Search for products..."
+oninput="searchListings()">
 
-  <div class="categories">
-    <div class="category">📱 Mobiles</div>
-    <div class="category">💻 Electronics</div>
-    <div class="category">🚗 Cars</div>
-    <div class="category">🏍️ Bikes</div>
-    <div class="category">👕 Fashion</div>
-    <div class="category">🏠 Home</div>
-  </div>
+<div class="categories">
+<div class="category">📱 Mobiles</div>
+<div class="category">💻 Electronics</div>
+<div class="category">🚗 Cars</div>
+<div class="category">🏍️ Bikes</div>
+<div class="category">👕 Fashion</div>
+<div class="category">🏠 Home</div>
+</div>
 
-  <button class="sell-btn" onclick="showSellForm()">
-    ＋ Sell Something
-  </button>
+<button class="sell-btn" onclick="showSellForm()">
+＋ Sell Something
+</button>
 
-  <div id="sellForm">
+<div id="sellForm">
 
-    <h2>Sell Something</h2>
+<h2>Sell Something</h2>
 
-    <input
-      type="text"
-      id="productName"
-      placeholder="Product name"
-    >
+<input id="productName" type="text" placeholder="Product name">
 
-    <select id="category">
-      <option value="">Select category</option>
-      <option>Mobiles</option>
-      <option>Electronics</option>
-      <option>Cars</option>
-      <option>Bikes</option>
-      <option>Fashion</option>
-      <option>Home</option>
-    </select>
+<select id="category">
+<option value="">Select category</option>
+<option>Mobiles</option>
+<option>Electronics</option>
+<option>Cars</option>
+<option>Bikes</option>
+<option>Fashion</option>
+<option>Home</option>
+</select>
 
-    <input
-      type="number"
-      id="price"
-      placeholder="Price"
-    >
+<input id="price" type="number" placeholder="Price">
 
-    <input
-      type="text"
-      id="location"
-      placeholder="Location"
-    >
+<input id="location" type="text" placeholder="Location">
 
-    <textarea
-      id="description"
-      rows="4"
-      placeholder="Describe your product"
-    ></textarea>
+<textarea id="description" rows="4"
+placeholder="Describe your product"></textarea>
 
-    <input
-      type="file"
-      id="photo"
-      accept="image/*"
-    >
+<input id="photo" type="file" accept="image/*">
 
-    <button onclick="postListing()">
-      Post Listing
-    </button>
+<button onclick="postListing()">Post Listing</button>
 
-  </div>
+</div>
 
-  <div id="listings"></div>
+<div id="listings"></div>
 
 </div>
 
 <script>
 
-  let allListings = [];
+let listings = JSON.parse(localStorage.getItem("buyselluListings")) || [];
 
-  function showSellForm() {
-    document.getElementById("sellForm").style.display = "block";
+function showSellForm(){
+  document.getElementById("sellForm").style.display="block";
+  document.getElementById("sellForm").scrollIntoView({
+    behavior:"smooth"
+  });
+}
 
-    document.getElementById("sellForm").scrollIntoView({
-      behavior: "smooth"
+function postListing(){
+
+  const name=document.getElementById("productName").value.trim();
+  const category=document.getElementById("category").value;
+  const price=document.getElementById("price").value;
+  const location=document.getElementById("location").value.trim();
+  const description=document.getElementById("description").value.trim();
+  const photo=document.getElementById("photo").files[0];
+
+  if(!name || !category || !price || !location){
+    alert("Please fill all required details.");
+    return;
+  }
+
+  const saveListing=(image="")=>{
+
+    listings.unshift({
+      name,
+      category,
+      price,
+      location,
+      description,
+      image
     });
-  }
 
-  function postListing() {
+    localStorage.setItem(
+      "buyselluListings",
+      JSON.stringify(listings)
+    );
 
-    const name = document.getElementById("productName").value.trim();
-    const category = document.getElementById("category").value;
-    const price = document.getElementById("price").value;
-    const location = document.getElementById("location").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const photo = document.getElementById("photo").files[0];
+    displayListings();
 
-    if (!name || !category || !price || !location) {
-      alert("Please fill Product name, Category, Price and Location.");
-      return;
-    }
-
-    const listing = {
-      name: name,
-      category: category,
-      price: price,
-      location: location,
-      description: description,
-      image: ""
-    };
-
-    if (photo) {
-
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-
-        listing.image = e.target.result;
-
-        allListings.unshift(listing);
-
-        displayListings();
-
-        clearForm();
-
-      };
-
-      reader.readAsDataURL(photo);
-
-    } else {
-
-      allListings.unshift(listing);
-
-      displayListings();
-
-      clearForm();
-
-    }
-  }
-
-  function displayListings() {
-
-    const listingsDiv = document.getElementById("listings");
-
-    listingsDiv.innerHTML = "<h2>Latest Listings</h2>";
-
-    allListings.forEach(function(item) {
-
-      const card = document.createElement("div");
-
-      card.className = "listing";
-
-      card.innerHTML = `
-
-        ${item.image ? `<img src="${item.image}" alt="${item.name}">` : ""}
-
-        <h3>${item.name}</h3>
-
-        <div class="price">₹${item.price}</div>
-
-        <strong>${item.category}</strong>
-
-        <p class="location">📍 ${item.location}</p>
-
-        <p>${item.description}</p>
-
-      `;
-
-      listingsDiv.appendChild(card);
-
-    });
-  }
-
-  function clearForm() {
-
-    document.getElementById("productName").value = "";
-    document.getElementById("category").value = "";
-    document.getElementById("price").value = "";
-    document.getElementById("location").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("photo").value = "";
+    document.getElementById("productName").value="";
+    document.getElementById("category").value="";
+    document.getElementById("price").value="";
+    document.getElementById("location").value="";
+    document.getElementById("description").value="";
+    document.getElementById("photo").value="";
 
     alert("Listing posted successfully!");
+  };
 
-    document.getElementById("listings").scrollIntoView({
-      behavior: "smooth"
-    });
+  if(photo){
+
+    const reader=new FileReader();
+
+    reader.onload=function(e){
+      saveListing(e.target.result);
+    };
+
+    reader.readAsDataURL(photo);
+
+  }else{
+    saveListing();
+  }
+}
+
+function displayListings(){
+
+  const box=document.getElementById("listings");
+
+  if(listings.length===0){
+    box.innerHTML="";
+    return;
   }
 
-  function searchListings() {
+  box.innerHTML="<h2>Latest Listings</h2>";
 
-    const searchText =
-      document.getElementById("search").value.toLowerCase();
+  listings.forEach(item=>{
 
-    const cards =
-      document.querySelectorAll(".listing");
+    const card=document.createElement("div");
 
-    cards.forEach(function(card) {
+    card.className="listing";
 
-      const text = card.innerText.toLowerCase();
+    card.innerHTML=`
+      ${item.image ? `<img src="${item.image}">` : ""}
+      <h3>${item.name}</h3>
+      <div class="price">₹${item.price}</div>
+      <p><b>${item.category}</b></p>
+      <p class="location">📍 ${item.location}</p>
+      <p>${item.description}</p>
+    `;
 
-      card.style.display =
-        text.includes(searchText) ? "block" : "none";
+    box.appendChild(card);
+  });
+}
 
-    });
-  }
+function searchListings(){
+
+  const search=
+    document.getElementById("search").value.toLowerCase();
+
+  document.querySelectorAll(".listing").forEach(card=>{
+
+    card.style.display=
+      card.innerText.toLowerCase().includes(search)
+      ? "block"
+      : "none";
+
+  });
+}
+
+displayListings();
 
 </script>
 
 </body>
-</html>
+</html>ka.
