@@ -163,12 +163,31 @@ placeholder="Search for products..."
 oninput="searchListings()">
 
 <div class="categories">
-<div class="category">📱 Mobiles</div>
-<div class="category">💻 Electronics</div>
-<div class="category">🚗 Cars</div>
-<div class="category">🏍️ Bikes</div>
-<div class="category">👕 Fashion</div>
-<div class="category">🏠 Home</div>
+
+<div class="category" onclick="filterCategory('Mobiles')">
+📱 Mobiles
+</div>
+
+<div class="category" onclick="filterCategory('Electronics')">
+💻 Electronics
+</div>
+
+<div class="category" onclick="filterCategory('Cars')">
+🚗 Cars
+</div>
+
+<div class="category" onclick="filterCategory('Bikes')">
+🏍️ Bikes
+</div>
+
+<div class="category" onclick="filterCategory('Fashion')">
+👕 Fashion
+</div>
+
+<div class="category" onclick="filterCategory('Home')">
+🏠 Home
+</div>
+
 </div>
 
 <button class="sell-btn" onclick="window.location.href='sell.html'">
@@ -380,6 +399,26 @@ function chatSeller(){
 
   window.location.href = "chat.html";
 }
+  function filterCategory(category){
+
+  const cards = document.querySelectorAll(".listing");
+
+  cards.forEach(card => {
+
+    const product =
+      listings.find(item =>
+        card.innerText.includes(item.name)
+      );
+
+    if(product && product.category === category){
+      card.style.display = "block";
+    }else{
+      card.style.display = "none";
+    }
+
+  });
+
+  }
 function searchListings(){
 
   const search=
