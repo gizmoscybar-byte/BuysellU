@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuySellU - Chat</title>
 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .header {
+      background: #111;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .chat-box {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    #messages {
+      min-height: 250px;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 15px 0;
+    }
+
+    .message {
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+
+    #chatMessage {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .send {
+      background: #111;
+      color: white;
+    }
+
+    .back {
+      background: white;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>BuySellU</h1>
+    <p>💬 Chat</p>
+  </div>
+
+  <div class="chat-box">
+
+    <h2 id="sellerName">Seller</h2>
+
+    <div id="messages"></div>
+
+    <input
+      id="chatMessage"
+      type="text"
+      placeholder="Write a message..."
+    >
+
+    <button class="send" onclick="sendMessage()">
+      📤 Send
+    </button>
+
+    <button class="back" onclick="window.location.href='index.html'">
+      ← Back to Home
+    </button>
+
+  </div>
+
+<script>
+
+const sellerName =
+  localStorage.getItem("buyselluChatSellerName") || "Seller";
+
+document.getElementById("sellerName").innerText =
+  "💬 Chat with " + sellerName;
+
+
+function sendMessage() {
+
+  const input = document.getElementById("chatMessage");
+  const message = input.value.trim();
+
+  if (message === "") {
+    alert("Please write a message.");
+    return;
+  }
+
+  const messages =
+    JSON.parse(localStorage.getItem("buyselluMessages") || "[]");
+
+  messages.push({
+    text: message,
+    time: new Date().toLocaleTimeString()
+  });
+
+  localStorage.setItem(
+    "buyselluMessages",
+    JSON.stringify(messages)
+  );
+
+  input.value = "";
+
+  displayMessages();
+}
+
+
+function displayMessages() {
+
+  const messages =
+    JSON.parse(localStorage.getItem("buyselluMessages") || "[]");
+
+  const box = document.getElementById("messages");
+
+  box.innerHTML = "";
+
+  messages.forEach(function(message) {
+
+    const msg = document.createElement("div");
+
+    msg.className = "message";
+
+    msg.innerText =
+      "You: " + message.text + " (" + message.time + ")";
+
+    box.appendChild(msg);
+
+  });
+}
+
+
+displayMessages();
+
+</script>
+
+</body>
+</html>
