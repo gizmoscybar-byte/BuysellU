@@ -156,6 +156,27 @@ oninput="searchListings()">
 <button class="sell-btn" onclick="showLoginForm()">
 👤 Login / Sign Up
 </button>
+  <div id="loginForm" style="display:none; background:white; margin-top:25px; padding:20px; border-radius:12px;">
+
+  <h2>Login / Sign Up</h2>
+
+  <input id="email" type="email" placeholder="Email address"
+    style="width:100%; box-sizing:border-box; padding:13px; margin:8px 0;">
+
+  <input id="password" type="password" placeholder="Password"
+    style="width:100%; box-sizing:border-box; padding:13px; margin:8px 0;">
+
+  <button onclick="loginUser()"
+    style="width:100%; padding:14px; margin-top:10px;">
+    Login
+  </button>
+
+  <button onclick="signupUser()"
+    style="width:100%; padding:14px; margin-top:10px;">
+    Create Account
+  </button>
+
+  </div>
 <div id="sellForm">
 
 <h2>Sell Something</h2>
