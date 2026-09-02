@@ -4,12 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BuySellU</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -18,9 +13,9 @@
     }
 
     header {
-      background: #111827;
+      background: #111;
       color: white;
-      padding: 18px;
+      padding: 22px;
       text-align: center;
     }
 
@@ -30,124 +25,96 @@
     }
 
     header p {
-      margin: 6px 0 0;
+      margin: 7px 0 0;
+      color: #ccc;
     }
 
-    .search-area {
-      padding: 18px;
-      background: white;
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px 18px;
     }
 
     .search {
       width: 100%;
-      padding: 14px;
+      padding: 15px;
+      box-sizing: border-box;
       border: 1px solid #ddd;
       border-radius: 10px;
       font-size: 16px;
+      margin-bottom: 20px;
     }
 
     .categories {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 15px;
-      background: white;
-    }
-
-    .category {
-      min-width: 110px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #f1f2f4;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .sell {
-      margin: 18px;
-      padding: 16px;
-      border: 0;
-      width: calc(100% - 36px);
-      border-radius: 10px;
-      background: #111827;
-      color: white;
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    .section {
-      padding: 18px;
-    }
-
-    .section h2 {
-      margin-top: 0;
-    }
-
-    .products {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
-    .product {
+    .category {
       background: white;
+      padding: 20px;
       border-radius: 12px;
-      padding: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .product-image {
-      height: 130px;
-      background: #e5e7eb;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-    }
-
-    .product h3 {
-      margin: 10px 0 5px;
+      text-align: center;
+      border: 1px solid #eee;
       font-size: 16px;
     }
 
-    .price {
-      font-weight: bold;
+    .sell-btn {
+      width: 100%;
+      margin-top: 25px;
+      padding: 17px;
+      border: none;
+      border-radius: 12px;
+      background: #111;
+      color: white;
       font-size: 18px;
+      cursor: pointer;
     }
 
-    .location {
-      color: #666;
-      font-size: 13px;
-    }
-
-    nav {
-      position: sticky;
-      bottom: 0;
-      display: flex;
-      justify-content: space-around;
+    #sellForm {
+      display: none;
       background: white;
-      border-top: 1px solid #ddd;
-      padding: 12px 5px;
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 12px;
     }
 
-    nav div {
-      text-align: center;
-      font-size: 13px;
+    #sellForm input,
+    #sellForm textarea,
+    #sellForm select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    #sellForm button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #111;
+      color: white;
+      font-size: 16px;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>BuySellU</h1>
-    <p>Buy • Sell • Discover</p>
-  </header>
+<header>
+  <h1>BuySellU</h1>
+  <p>Buy • Sell • Discover</p>
+</header>
 
-  <div class="search-area">
-    <input class="search" type="text" placeholder="Search for products...">
-  </div>
+<div class="container">
+
+  <input class="search" type="text" placeholder="Search for products...">
 
   <div class="categories">
     <div class="category">📱 Mobiles</div>
@@ -158,7 +125,49 @@
     <div class="category">🏠 Home</div>
   </div>
 
-  <button class="sell">＋ Sell Something</button>
+  <button class="sell-btn" onclick="showSellForm()">
+    ＋ Sell Something
+  </button>
 
-  <section class="section">
-    <h
+  <div id="sellForm">
+    <h2>Sell Something</h2>
+
+    <input type="text" placeholder="Product name">
+
+    <select>
+      <option>Select category</option>
+      <option>Mobiles</option>
+      <option>Electronics</option>
+      <option>Cars</option>
+      <option>Bikes</option>
+      <option>Fashion</option>
+      <option>Home</option>
+    </select>
+
+    <input type="number" placeholder="Price">
+
+    <input type="text" placeholder="Location">
+
+    <textarea rows="4" placeholder="Describe your product"></textarea>
+
+    <input type="file" accept="image/*">
+
+    <button onclick="alert('Your listing is ready!')">
+      Post Listing
+    </button>
+  </div>
+
+</div>
+
+<script>
+  function showSellForm() {
+    document.getElementById("sellForm").style.display = "block";
+    window.scrollTo({
+      top: document.getElementById("sellForm").offsetTop,
+      behavior: "smooth"
+    });
+  }
+</script>
+
+</body>
+</html>
