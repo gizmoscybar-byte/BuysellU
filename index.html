@@ -301,6 +301,7 @@ function displayListings(){
       <div class="price">₹${item.price}</div>
       <p><b>${item.category}</b></p>
       <p>👤 Seller: ${localStorage.getItem("buyselluProfileName") || "Unknown Seller"}</p>
+      ${localStorage.getItem("buyselluProfilePhoto") ? `<img src="${localStorage.getItem("buyselluProfilePhoto")}" style="width:45px;height:45px;border-radius:50%;">` : ""}
       <p class="location">📍 ${item.location}</p>
       <p>${item.description}</p>
     `;
