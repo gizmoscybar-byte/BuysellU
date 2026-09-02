@@ -398,6 +398,11 @@ function saveProfile() {
 displayListings();
   alert("Profile saved successfully!");
 }
+  document.getElementById("profileName").value =
+  localStorage.getItem("buyselluProfileName") || "";
+
+document.getElementById("profileLocation").value =
+  localStorage.getItem("buyselluProfileLocation") || "";
   document.getElementById("profilePhoto").addEventListener("change", function(event) {
   const file = event.target.files[0];
 
