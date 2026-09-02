@@ -292,7 +292,18 @@ function displayListings(){
   listings.forEach(item=>{
 
     const card=document.createElement("div");
+card.onclick=function(event){
+  if(event.target.tagName==="BUTTON"){
+    return;
+  }
 
+  localStorage.setItem(
+    "buyselluSelectedProduct",
+    JSON.stringify(item)
+  );
+
+  window.location.href="product.html";
+};
     card.className="listing";
 
     card.innerHTML=`
