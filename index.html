@@ -321,6 +321,9 @@ function contactSeller(){
 }
 
 function chatSeller(){
+  document.getElementById("chatSellerName").innerText =
+    "👤 Seller: " + (localStorage.getItem("buyselluProfileName") || "Unknown Seller");
+
   document.getElementById("chatBox").style.display = "block";
 }
 function searchListings(){
@@ -436,7 +439,7 @@ document.getElementById("profileLocation").value =
   <div id="chatBox" style="display:none; background:white; padding:20px; margin-top:20px; border-radius:12px;">
 
   <h2>💬 Chat with Seller</h2>
-
+<p id="chatSellerName">👤 Seller</p>
   <div id="messages" style="min-height:100px; margin-bottom:15px;"></div>
 
   <input id="chatMessage" type="text" placeholder="Write a message..."
