@@ -146,7 +146,14 @@
     }
 
     function callSeller() {
-      alert("Call feature will be connected next.");
+  const phone = localStorage.getItem("buyselluProfilePhone");
+
+  if (!phone) {
+    alert("Seller phone number is not available.");
+    return;
+  }
+
+  window.location.href = "tel:" + phone;
     }
 
   </script>
