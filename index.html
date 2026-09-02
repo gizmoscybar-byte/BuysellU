@@ -356,22 +356,10 @@ card.onclick=function(event){
     card.className="listing";
 
     card.innerHTML=`
-      ${item.image ? `<img src="${item.image}">` : ""}
-      <h3>${item.name}</h3>
-      <div class="price">₹${item.price}</div>
-      <p><b>${item.category}</b></p>
-      <p>👤 Seller: ${localStorage.getItem("buyselluProfileName") || "Unknown Seller"}</p>
-      <button onclick="contactSeller()" style="width:100%;padding:12px;margin-top:10px;">
-  📞 Contact Seller
-</button>
-
-<button onclick="chatSeller()" style="width:100%;padding:12px;margin-top:10px;">
-  💬 Chat with Seller
-</button>
-      ${localStorage.getItem("buyselluProfilePhoto") ? `<img src="${localStorage.getItem("buyselluProfilePhoto")}" style="width:45px;height:45px;border-radius:50%;">` : ""}
-      <p class="location">📍 ${item.location}</p>
-      <p>${item.description}</p>
-    `;
+  ${item.image ? `<img src="${item.image}">` : ""}
+  <h3>${item.name}</h3>
+  <div class="price">₹${item.price}</div>
+`;
 
     box.appendChild(card);
   });
