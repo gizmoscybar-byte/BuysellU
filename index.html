@@ -332,10 +332,16 @@ function contactSeller(){
 }
 
 function chatSeller(){
-  document.getElementById("chatSellerName").innerText =
-    "👤 Seller: " + (localStorage.getItem("buyselluProfileName") || "Unknown Seller");
+  const sellerName =
+    localStorage.getItem("buyselluProfileName") || "Unknown Seller";
 
-  document.getElementById("chatBox").style.display = "block";
+  const sellerPhoto =
+    localStorage.getItem("buyselluProfilePhoto") || "";
+
+  localStorage.setItem("buyselluChatSellerName", sellerName);
+  localStorage.setItem("buyselluChatSellerPhoto", sellerPhoto);
+
+  window.location.href = "chat.html";
 }
 function searchListings(){
 
