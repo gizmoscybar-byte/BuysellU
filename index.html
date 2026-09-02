@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BuySellU</title>
+
   <style>
     body {
       margin: 0;
@@ -101,6 +102,41 @@
       background: #111;
       color: white;
       font-size: 16px;
+      cursor: pointer;
+    }
+
+    #listings {
+      margin-top: 30px;
+    }
+
+    .listing {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      border: 1px solid #eee;
+    }
+
+    .listing img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .listing h3 {
+      margin: 5px 0;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    .location {
+      color: #666;
     }
   </style>
 </head>
@@ -114,7 +150,13 @@
 
 <div class="container">
 
-  <input class="search" type="text" placeholder="Search for products...">
+  <input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="Search for products..."
+    oninput="searchListings()"
+  >
 
   <div class="categories">
     <div class="category">📱 Mobiles</div>
@@ -130,12 +172,17 @@
   </button>
 
   <div id="sellForm">
+
     <h2>Sell Something</h2>
 
-    <input type="text" placeholder="Product name">
+    <input
+      type="text"
+      id="productName"
+      placeholder="Product name"
+    >
 
-    <select>
-      <option>Select category</option>
+    <select id="category">
+      <option value="">Select category</option>
       <option>Mobiles</option>
       <option>Electronics</option>
       <option>Cars</option>
@@ -144,29 +191,171 @@
       <option>Home</option>
     </select>
 
-    <input type="number" placeholder="Price">
+    <input
+      type="number"
+      id="price"
+      placeholder="Price"
+    >
 
-    <input type="text" placeholder="Location">
+    <input
+      type="text"
+      id="location"
+      placeholder="Location"
+    >
 
-    <textarea rows="4" placeholder="Describe your product"></textarea>
+    <textarea
+      id="description"
+      rows="4"
+      placeholder="Describe your product"
+    ></textarea>
 
-    <input type="file" accept="image/*">
+    <input
+      type="file"
+      id="photo"
+      accept="image/*"
+    >
 
-    <button onclick="alert('Your listing is ready!')">
+    <button onclick="postListing()">
       Post Listing
     </button>
+
   </div>
+
+  <div id="listings"></div>
 
 </div>
 
 <script>
+
+  let allListings = [];
+
   function showSellForm() {
     document.getElementById("sellForm").style.display = "block";
-    window.scrollTo({
-      top: document.getElementById("sellForm").offsetTop,
+
+    document.getElementById("sellForm").scrollIntoView({
       behavior: "smooth"
     });
   }
+
+  function postListing() {
+
+    const name = document.getElementById("productName").value.trim();
+    const category = document.getElementById("category").value;
+    const price = document.getElementById("price").value;
+    const location = document.getElementById("location").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const photo = document.getElementById("photo").files[0];
+
+    if (!name || !category || !price || !location) {
+      alert("Please fill Product name, Category, Price and Location.");
+      return;
+    }
+
+    const listing = {
+      name: name,
+      category: category,
+      price: price,
+      location: location,
+      description: description,
+      image: ""
+    };
+
+    if (photo) {
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+
+        listing.image = e.target.result;
+
+        allListings.unshift(listing);
+
+        displayListings();
+
+        clearForm();
+
+      };
+
+      reader.readAsDataURL(photo);
+
+    } else {
+
+      allListings.unshift(listing);
+
+      displayListings();
+
+      clearForm();
+
+    }
+  }
+
+  function displayListings() {
+
+    const listingsDiv = document.getElementById("listings");
+
+    listingsDiv.innerHTML = "<h2>Latest Listings</h2>";
+
+    allListings.forEach(function(item) {
+
+      const card = document.createElement("div");
+
+      card.className = "listing";
+
+      card.innerHTML = `
+
+        ${item.image ? `<img src="${item.image}" alt="${item.name}">` : ""}
+
+        <h3>${item.name}</h3>
+
+        <div class="price">₹${item.price}</div>
+
+        <strong>${item.category}</strong>
+
+        <p class="location">📍 ${item.location}</p>
+
+        <p>${item.description}</p>
+
+      `;
+
+      listingsDiv.appendChild(card);
+
+    });
+  }
+
+  function clearForm() {
+
+    document.getElementById("productName").value = "";
+    document.getElementById("category").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("location").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("photo").value = "";
+
+    alert("Listing posted successfully!");
+
+    document.getElementById("listings").scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+
+  function searchListings() {
+
+    const searchText =
+      document.getElementById("search").value.toLowerCase();
+
+    const cards =
+      document.querySelectorAll(".listing");
+
+    cards.forEach(function(card) {
+
+      const text = card.innerText.toLowerCase();
+
+      card.style.display =
+        text.includes(searchText) ? "block" : "none";
+
+    });
+  }
+
 </script>
 
 </body>
