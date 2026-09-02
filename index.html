@@ -268,17 +268,44 @@ function postListing(){
 
   if(photo){
 
-    const reader=new FileReader();
+  const reader = new FileReader();
 
-    reader.onload=function(e){
-      saveListing(e.target.result);
+  reader.onload = function(e){
+
+    const img = new Image();
+
+    img.onload = function(){
+
+      const canvas = document.createElement("canvas");
+      const maxWidth = 800;
+      const scale = Math.min(1, maxWidth / img.width);
+
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+
+      const ctx = canvas.getContext("2d");
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      const compressedImage =
+        canvas.toDataURL("image/jpeg", 0.7);
+
+      saveListing(compressedImage);
     };
 
-    reader.readAsDataURL(photo);
+    img.src = e.target.result;
+  };
 
-  }else{
-    saveListing();
-  }
+  reader.readAsDataURL(photo);
+
+}else{
+  saveListing();
 }
 
 function displayListings(){
