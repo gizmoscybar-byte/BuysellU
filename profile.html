@@ -1,1 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuySellU - Profile</title>
 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .header {
+      background: #111;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 15px;
+    }
+
+    .profile-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .profile-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: none;
+      margin: 0 auto 15px;
+    }
+
+    .info {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .info p {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .chat {
+      background: #111;
+      color: white;
+    }
+
+    .call {
+      background: #eee;
+      color: #111;
+    }
+
+    .back {
+      background: white;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>BuySellU</h1>
+    <p>Seller Profile</p>
+  </div>
+
+  <div class="container">
+
+    <div class="profile-card">
+
+      <img id="profilePhoto" class="profile-photo">
+
+      <h2 id="profileName">Seller</h2>
+
+      <div class="info">
+
+        <p>
+          📍 <b>Location:</b>
+          <span id="profileLocation">Not available</span>
+        </p>
+
+        <p>
+          🏠 <b>Address:</b>
+          <span id="profileAddress">Not available</span>
+        </p>
+
+      </div>
+
+      <button class="chat" onclick="openChat()">
+        💬 Chat with Seller
+      </button>
+
+      <button class="call" onclick="callSeller()">
+        📞 Call Seller
+      </button>
+
+      <button class="back" onclick="window.location.href='index.html'">
+        ← Back to Home
+      </button>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    const name =
+      localStorage.getItem("buyselluProfileName") || "Unknown Seller";
+
+    const location =
+      localStorage.getItem("buyselluProfileLocation") || "Not available";
+
+    const photo =
+      localStorage.getItem("buyselluProfilePhoto") || "";
+
+    document.getElementById("profileName").innerText = name;
+    document.getElementById("profileLocation").innerText = location;
+
+    if (photo) {
+      const image = document.getElementById("profilePhoto");
+      image.src = photo;
+      image.style.display = "block";
+    }
+
+    function openChat() {
+      localStorage.setItem("buyselluChatSellerName", name);
+      localStorage.setItem("buyselluChatSellerPhoto", photo);
+      window.location.href = "chat.html";
+    }
+
+    function callSeller() {
+      alert("Call feature will be connected next.");
+    }
+
+  </script>
+
+</body>
+</html>
