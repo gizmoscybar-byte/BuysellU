@@ -191,6 +191,19 @@ if(notificationStatus === null){
   localStorage.setItem("buyselluNotifications", "true");
 }
 </script>
+<script>
+function toggleNotifications(){
+  const current =
+    localStorage.getItem("buyselluNotifications") !== "off";
 
+  if(current){
+    localStorage.setItem("buyselluNotifications","off");
+    alert("Notifications OFF");
+  }else{
+    localStorage.setItem("buyselluNotifications","on");
+    alert("Notifications ON");
+  }
+}
+</script>
 </body>
 </html>
