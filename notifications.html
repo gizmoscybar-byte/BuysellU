@@ -91,7 +91,11 @@ body{
 </div>
 
 <div class="container">
-
+<div class="notification-setting">
+  <button onclick="toggleNotifications()">
+    🔔 Notifications: ON/OFF
+  </button>
+</div>
 <div id="notifications"></div>
 
 <button class="back"
@@ -181,7 +185,11 @@ div.onclick=function(){
   });
 
 }
+const notificationStatus = localStorage.getItem("buyselluNotifications");
 
+if(notificationStatus === null){
+  localStorage.setItem("buyselluNotifications", "true");
+}
 </script>
 
 </body>
