@@ -142,6 +142,25 @@ onclick="window.location.href='account.html'">
 </button>
 
 </div>
+<script>
 
+document.querySelectorAll("button").forEach(function(button){
+
+  button.addEventListener("click", function(){
+
+    const value = button.innerText.trim();
+
+    localStorage.setItem(
+      "buyselluPrivacy_" + value,
+      "true"
+    );
+
+    alert(value + " setting saved!");
+
+  });
+
+});
+
+</script>
 </body>
 </html>
