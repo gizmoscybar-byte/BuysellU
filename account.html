@@ -95,7 +95,7 @@ body{
 </div>
 
 <div class="container">
-
+<p id="userEmail" style="text-align:center;"></p>
 <div class="account-card">
 
 <button onclick="window.location.href='my-profile.html'">
@@ -175,8 +175,7 @@ onclick="window.location.href='index.html'">
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyCXE8VXsK9oIImXh_XdvXVqXt-IKzaqRk",
   authDomain: "buysellu-d4db0.firebaseapp.com",
