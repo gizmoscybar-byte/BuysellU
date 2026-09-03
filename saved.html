@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BuySellU - Saved Items</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fff0f7;
+  color:#222;
+}
+
+.header{
+  background:#ec4899;
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+}
+
+.header h1{
+  margin:0;
+  font-size:30px;
+}
+
+.header p{
+  margin:8px 0 0;
+  font-size:15px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:20px 15px;
+}
+
+.saved-item{
+  background:white;
+  border-radius:14px;
+  padding:10px;
+  margin-bottom:12px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.saved-item img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.saved-info{
+  flex:1;
+}
+
+.saved-info h3{
+  margin:0 0 8px;
+  font-size:17px;
+}
+
+.price{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.remove{
+  border:0;
+  background:#f5f5f5;
+  padding:9px;
+  border-radius:8px;
+}
+
+.back{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  background:#ec4899;
+  color:white;
+  font-size:16px;
+  margin-top:10px;
+}
+
+.empty{
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>BuySellU</h1>
+
+<p>Saved / Favourite Items</p>
+
+</div>
+
+<div class="container">
+
+<div id="savedItems"></div>
+
+<button class="back"
+onclick="window.location.href='account.html'">
+
+← Back to Account
+
+</button>
+
+</div>
+
+<script>
+
+function showSavedItems(){
+
+  const box=document.getElementById("savedItems");
+
+  const saved=JSON.parse(
+    localStorage.getItem("buyselluSavedItems") || "[]"
+  );
+
+  if(saved.length===0){
+
+    box.innerHTML=`
+      <div class="empty">
+        ❤️
+        <h2>No Saved Items</h2>
+        <p>Your favourite products will appear here.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  box.innerHTML="";
+
+  saved.forEach((item,index)=>{
+
+    const div=document.createElement("div");
+
+    div.className="saved-item";
+
+    div.innerHTML=`
+
+      ${item.image
+        ? `<img src="${item.image}">`
+        : ""
+      }
+
+      <div class="saved-info">
+
+        <h3>${item.name}</h3>
+
+        <div class="price">
+          ₹${item.price}
+        </div>
+
+      </div>
+
+      <button class="remove"
+        onclick="removeSaved(${index})">
+        ❌
+      </button>
+
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+function removeSaved(index){
+
+  const saved=JSON.parse(
+    localStorage.getItem("buyselluSavedItems") || "[]"
+  );
+
+  saved.splice(index,1);
+
+  localStorage.setItem(
+    "buyselluSavedItems",
+    JSON.stringify(saved)
+  );
+
+  showSavedItems();
+
+}
+
+showSavedItems();
+
+</script>
+
+</body>
+</html>
