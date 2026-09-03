@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>BuySellU - Settings</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fff0f7;
+  color:#222;
+}
+
+.header{
+  background:#ec4899;
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+}
+
+.header h1{
+  margin:0;
+  font-size:30px;
+}
+
+.header p{
+  margin:8px 0 0;
+  font-size:15px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:20px 15px;
+}
+
+.settings-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+.settings-card button{
+  width:100%;
+  padding:16px;
+  border:0;
+  border-radius:12px;
+  background:#f5f5f5;
+  font-size:17px;
+  text-align:left;
+  margin-bottom:10px;
+}
+
+.settings-card button:active{
+  transform:scale(0.98);
+}
+
+.back{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  background:#ec4899;
+  color:white;
+  font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>BuySellU</h1>
+
+<p>Settings</p>
+
+</div>
+
+<div class="container">
+
+<div class="settings-card">
+
+<button onclick="alert('Notifications settings will be connected next.')">
+🔔 Notifications
+</button>
+
+<button onclick="alert('Language settings will be connected next.')">
+🌐 Language
+</button>
+
+<button onclick="alert('Dark Mode will be connected next.')">
+🌙 Dark Mode
+</button>
+
+<button onclick="window.location.href='privacy.html'">
+🔒 Privacy
+</button>
+
+<button onclick="alert('Password & Security will be connected next.')">
+🔐 Password & Security
+</button>
+
+</div>
+
+<button class="back"
+onclick="window.location.href='account.html'">
+
+← Back to Account
+
+</button>
+
+</div>
+
+</body>
+</html>
