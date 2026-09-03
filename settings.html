@@ -145,5 +145,35 @@ function changeLanguage(){
   }
 }
     </script>
+  <script>
+function applyLanguage(){
+
+  const language = localStorage.getItem("buyselluLanguage");
+
+  if(language === "Hindi"){
+    document.querySelector("p").innerText = "सेटिंग्स";
+
+    const buttons = document.querySelectorAll(".settings-card button");
+    buttons[0].innerText = "🔔 सूचनाएँ";
+    buttons[1].innerText = "🌐 भाषा";
+    buttons[2].innerText = "🌙 डार्क मोड";
+    buttons[3].innerText = "🔒 प्राइवेसी";
+    buttons[4].innerText = "🔐 पासवर्ड और सुरक्षा";
+  }
+
+  if(language === "Urdu"){
+    document.querySelector("p").innerText = "ترتیبات";
+
+    const buttons = document.querySelectorAll(".settings-card button");
+    buttons[0].innerText = "🔔 اطلاعات";
+    buttons[1].innerText = "🌐 زبان";
+    buttons[2].innerText = "🌙 ڈارک موڈ";
+    buttons[3].innerText = "🔒 رازداری";
+    buttons[4].innerText = "🔐 پاس ورڈ اور سیکیورٹی";
+  }
+}
+
+applyLanguage();
+  </script>
 </body>
 </html>
