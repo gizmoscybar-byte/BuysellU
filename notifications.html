@@ -150,9 +150,31 @@ if(notifications.length===0){
     div.className="notification";
 
     div.innerHTML=`
-      <h3>${item.title}</h3>
-      <p>${item.text}</p>
-    `;
+<h3>${item.title}</h3>
+<p>${item.text}</p>
+`;
+
+div.style.cursor="pointer";
+
+div.onclick=function(){
+
+  if(item.title.includes("New Chat")){
+    window.location.href="chat.html";
+  }
+
+  else if(item.title.includes("Favourite")){
+    window.location.href="saved.html";
+  }
+
+  else if(item.title.includes("Listing Update")){
+    window.location.href="my-listings.html";
+  }
+
+  else if(item.title.includes("BuySellU Alert")){
+    alert(item.text);
+  }
+
+};
 
     box.appendChild(div);
 
