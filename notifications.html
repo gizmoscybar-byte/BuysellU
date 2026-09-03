@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BuySellU - Notifications</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fff0f7;
+  color:#222;
+}
+
+.header{
+  background:#ec4899;
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+}
+
+.header h1{
+  margin:0;
+  font-size:30px;
+}
+
+.header p{
+  margin:8px 0 0;
+  font-size:15px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:20px 15px;
+}
+
+.notification{
+  background:white;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+.notification h3{
+  margin:0 0 7px;
+  font-size:17px;
+}
+
+.notification p{
+  margin:0;
+  color:#666;
+  font-size:14px;
+}
+
+.empty{
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  text-align:center;
+}
+
+.back{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  background:#ec4899;
+  color:white;
+  font-size:16px;
+  margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>BuySellU</h1>
+
+<p>Notifications</p>
+
+</div>
+
+<div class="container">
+
+<div id="notifications"></div>
+
+<button class="back"
+onclick="window.location.href='account.html'">
+
+← Back to Account
+
+</button>
+
+</div>
+
+<script>
+
+const notifications = [
+
+  {
+    title:"💬 New Chat",
+    text:"You have a new message from a buyer or seller."
+  },
+
+  {
+    title:"❤️ Favourite Item",
+    text:"Someone saved one of your listings."
+  },
+
+  {
+    title:"📦 Listing Update",
+    text:"Your listing information has been updated."
+  },
+
+  {
+    title:"🔔 BuySellU Alert",
+    text:"Important updates from BuySellU will appear here."
+  }
+
+];
+
+const box=document.getElementById("notifications");
+
+if(notifications.length===0){
+
+  box.innerHTML=`
+    <div class="empty">
+      🔔
+      <h2>No Notifications</h2>
+      <p>You don't have any notifications yet.</p>
+    </div>
+  `;
+
+}else{
+
+  notifications.forEach(item=>{
+
+    const div=document.createElement("div");
+
+    div.className="notification";
+
+    div.innerHTML=`
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
