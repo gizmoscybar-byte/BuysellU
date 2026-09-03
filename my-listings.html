@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Listings - BuySellU</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#fff0f7;
+  color:#222;
+}
+
+.header{
+  background:#ec4899;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+.header h1{
+  margin:0;
+  font-size:28px;
+}
+
+.container{
+  padding:20px;
+  max-width:900px;
+  margin:auto;
+}
+
+h2{
+  margin-top:0;
+}
+
+.listings{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  padding:10px;
+  border:1px solid #eee;
+  overflow:hidden;
+}
+
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.card h3{
+  font-size:15px;
+  margin:8px 0 5px;
+}
+
+.price{
+  font-size:18px;
+  font-weight:bold;
+  color:#ec4899;
+}
+
+.empty{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.back{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  border:0;
+  border-radius:10px;
+  background:#ec4899;
+  color:white;
+  font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>📦 My Listings</h1>
+
+<p>Items you posted for sale</p>
+
+</div>
+
+<div class="container">
+
+<h2>Your Items</h2>
+
+<div id="myListings" class="listings"></div>
+
+<button class="back" onclick="window.location.href='index.html'">
+← Back to Home
+</button>
+
+</div>
+
+<script>
+
+const listings =
+JSON.parse(localStorage.getItem("buyselluListings")) || [];
+
+const box =
+document.getElementById("myListings");
+
+if(listings.length === 0){
+
+  box.innerHTML = `
+    <div class="empty">
+      <h3>No listings yet</h3>
+      <p>Sell something and it will appear here.</p>
+    </div>
+  `;
+
+}else{
+
+  listings.forEach(item => {
+
+    const card =
+    document.createElement("div");
+
+    card.className = "card";
+
+    card.innerHTML = `
+      ${item.image ? `<img src="${item.image}">` : ""}
+      <h3>${item.name}</h3>
+      <div class="price">₹${item.price}</div>
+    `;
+
+    card.onclick = function(){
+
+      localStorage.setItem(
+        "buyselluSelectedProduct",
+        JSON.stringify(item)
+      );
+
+      window.location.href =
+      "product.html";
+
+    };
+
+    box.appendChild(card);
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
