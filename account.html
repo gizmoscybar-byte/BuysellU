@@ -159,12 +159,11 @@ body{
 
 </div>
 <div class="account-card">
-
-<button class="logout" onclick="alert('Login / Signup feature will be connected soon.')">
+<button class="logout" onclick="logoutUser()">
 🔐 Login / Logout
 </button>
-
 </div>
+
 
 <button class="back"
 onclick="window.location.href='index.html'">
@@ -174,6 +173,28 @@ onclick="window.location.href='index.html'">
 </button>
 
 </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCXE8VXsK9oIImXh_XdvXVqXt-IKzaqRk",
+  authDomain: "buysellu-d4db0.firebaseapp.com",
+  projectId: "buysellu-d4db0",
+  storageBucket: "buysellu-d4db0.firebasestorage.app",
+  messagingSenderId: "585565834703",
+  appId: "1:585565834703:web:724ad291b435df758356ba",
+  measurementId: "G-JSV2BLP6HL"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.logoutUser = async function() {
+  await signOut(auth);
+  alert("Logout successful!");
+  window.location.href = "index.html";
+};
+</script>
 </body>
 </html>
