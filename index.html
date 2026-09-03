@@ -621,12 +621,50 @@ function showLoginForm() {
   }
 }
 
-function loginUser() {
-  alert("Login system will be connected next.");
+async function loginUser() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Email and password enter karo.");
+    return;
+  }
+
+  try {
+    const { getAuth, signInWithEmailAndPassword } =
+      await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js");
+
+    const auth = getAuth();
+
+    await signInWithEmailAndPassword(auth, email, password);
+
+    alert("Login successful!");
+  } catch (error) {
+    alert("Login failed: " + error.message);
+  }
 }
 
-function signupUser() {
-  alert("Account creation system will be connected next.");
+async function signupUser() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Email and password enter karo.");
+    return;
+  }
+
+  try {
+    const { getAuth, createUserWithEmailAndPassword } =
+      await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js");
+
+    const auth = getAuth();
+
+    await createUserWithEmailAndPassword(auth, email, password);
+
+    alert("Account created successfully!");
+  } catch (error) {
+    alert("Sign up failed: " + error.message);
+  }
 }
 </script>
   <div id="profileSection" style="display:none; background:white; margin-top:25px; padding:20px; border-radius:12px;">
