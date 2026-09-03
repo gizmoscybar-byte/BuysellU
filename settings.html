@@ -96,7 +96,7 @@ body{
 🔔 Notifications
  </button>
 
-<button onclick="alert('Language settings will be connected next.')">
+<button onclick="changeLanguage()">
 🌐 Language
 </button>
 
@@ -122,6 +122,28 @@ onclick="window.location.href='account.html'">
 </button>
 
 </div>
+<script>
+function changeLanguage(){
+  const language = prompt(
+    "Choose language:\n1. English\n2. Hindi\n3. Urdu"
+  );
 
+  if(language === "1"){
+    localStorage.setItem("buyselluLanguage","English");
+    alert("English selected!");
+  }
+  else if(language === "2"){
+    localStorage.setItem("buyselluLanguage","Hindi");
+    alert("Hindi selected!");
+  }
+  else if(language === "3"){
+    localStorage.setItem("buyselluLanguage","Urdu");
+    alert("Urdu selected!");
+  }
+  else{
+    alert("Please choose 1, 2 or 3.");
+  }
+}
+    </script>
 </body>
 </html>
