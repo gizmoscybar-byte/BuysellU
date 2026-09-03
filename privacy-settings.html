@@ -165,6 +165,29 @@ onclick="window.location.href='account.html'">
 </button>
 
 </div>
+<script>
 
+const switches = document.querySelectorAll(".switch");
+
+switches.forEach((sw, index) => {
+
+  const saved = localStorage.getItem("privacy_" + index);
+
+  if(saved !== null){
+    sw.checked = saved === "true";
+  }
+
+  sw.addEventListener("change", function(){
+
+    localStorage.setItem(
+      "privacy_" + index,
+      sw.checked
+    );
+
+  });
+
+});
+
+</script>
 </body>
 </html>
