@@ -73,7 +73,24 @@ body{
   color:white;
   font-size:16px;
 }
+body.dark-mode{
+  background:#121212;
+  color:white;
+}
 
+body.dark-mode .settings-card{
+  background:#1e1e1e;
+}
+
+body.dark-mode .settings-card button{
+  background:#2b2b2b;
+  color:white;
+}
+
+body.dark-mode .back{
+  background:#ec4899;
+  color:white;
+}
 </style>
 
 </head>
@@ -100,7 +117,7 @@ body{
 🌐 Language
 </button>
 
-<button onclick="alert('Dark Mode will be connected next.')">
+<button onclick="toggleDarkMode()">
 🌙 Dark Mode
 </button>
 
@@ -174,6 +191,25 @@ function applyLanguage(){
 }
 
 applyLanguage();
+  </script>
+  <script>
+function toggleDarkMode(){
+  document.body.classList.toggle("dark-mode");
+
+  const enabled = document.body.classList.contains("dark-mode");
+
+  localStorage.setItem("buyselluDarkMode", enabled);
+
+  if(enabled){
+    alert("Dark Mode ON");
+  }else{
+    alert("Dark Mode OFF");
+  }
+}
+
+if(localStorage.getItem("buyselluDarkMode") === "true"){
+  document.body.classList.add("dark-mode");
+}
   </script>
 </body>
 </html>
