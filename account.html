@@ -175,9 +175,17 @@ onclick="window.location.href='index.html'">
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+  setPersistence,
+  browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCXE8VXsK9oIImXh_XdvXVqXt-IKzaqRk",
+  apiKey: "AIzaSyCXE8VXsK9olIImXh_XdvXVqXt-IKzaqRk",
   authDomain: "buysellu-d4db0.firebaseapp.com",
   projectId: "buysellu-d4db0",
   storageBucket: "buysellu-d4db0.firebasestorage.app",
@@ -188,20 +196,48 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-onAuthStateChanged(auth, (user) => {
-  const userEmail = document.getElementById("userEmail");
 
-  if (user) {
-    userEmail.textContent = "Logged in as: " + user.email;
-  } else {
-    userEmail.textContent = "Not logged in";
-  }
-});
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+
+    onAuthStateChanged(auth, (user) => {
+
+      const userEmail = document.getElementById("userEmail");
+
+      if (user) {
+        console.log("Logged in:", user.email);
+
+        userEmail.textContent = "Logged in as: " + user.email;
+
+      } else {
+        console.log("Not logged in");
+
+        userEmail.textContent = "Not logged in";
+      }
+
+    });
+
+  })
+  .catch((error) => {
+    console.error("Firebase error:", error);
+  });
+
 window.logoutUser = async function() {
-  await signOut(auth);
-  
-  alert("Logout successful!");
-  window.location.href = "index.html";
+
+  try {
+
+    await signOut(auth);
+
+    alert("Logout successful!");
+
+    window.location.href = "index.html";
+
+  } catch (error) {
+
+    alert("Logout failed: " + error.message);
+
+  }
+
 };
 </script>
 </body>
