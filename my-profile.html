@@ -163,13 +163,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
-  const email = document.getElementById("profileEmail");
+    const email = document.getElementById("profileEmail");
 
-  if (user) {
-    email.value = user.email;
-  } else {
-    email.value = "";
-  }
+    if (user && user.email) {
+        email.value = user.email;
+        email.readOnly = true;
+    } else {
+        email.value = "";
+        email.readOnly = false;
+    }
 });
 </script>
 </body>
