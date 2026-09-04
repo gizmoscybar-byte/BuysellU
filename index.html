@@ -747,7 +747,6 @@ function saveProfile() {
   const name = document.getElementById("profileName").value;
   const location = document.getElementById("profileLocation").value;
   const preview = document.getElementById("profilePreview");
-const address = document.getElementById("profileAddress").value;
 const phone = document.getElementById("profilePhone").value;
 const email = document.getElementById("profileEmail").value;
   if (preview.src && preview.style.display !== "none") {
@@ -755,7 +754,6 @@ const email = document.getElementById("profileEmail").value;
   }
   localStorage.setItem("buyselluProfileName", name);
   localStorage.setItem("buyselluProfileLocation", location);
-  localStorage.setItem("buyselluProfileAddress", address);
 localStorage.setItem("buyselluProfilePhone", phone);
 localStorage.setItem("buyselluProfileEmail", email);
 displayListings();
@@ -763,9 +761,6 @@ displayListings();
 }
   document.getElementById("profileName").value =
   localStorage.getItem("buyselluProfileName") || "";
-
-document.getElementById("profileLocation").value =
-  localStorage.getItem("buyselluProfileLocation") || "";
   document.getElementById("profilePhoto").addEventListener("change", function(event) {
   const file = event.target.files[0];
 
