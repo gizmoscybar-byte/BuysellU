@@ -145,6 +145,32 @@ function saveProfile() {
 }
 
 </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCXE8VXsK9oIImXh_XdvXVqXt-IKzaqRk",
+  authDomain: "buysellu-d4db0.firebaseapp.com",
+  projectId: "buysellu-d4db0",
+  storageBucket: "buysellu-d4db0.firebasestorage.app",
+  messagingSenderId: "585565834703",
+  appId: "1:585565834703:web:724ad291b435df758356ba",
+  measurementId: "G-JSV2BLP6HL"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const email = document.getElementById("profileEmail");
+
+  if (user) {
+    email.value = user.email;
+  } else {
+    email.value = "";
+  }
+});
+</script>
 </body>
 </html>
