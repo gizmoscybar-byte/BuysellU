@@ -853,6 +853,7 @@ import { getAuth, GoogleAuthProvider, signInWithRedirect } from "https://www.gst
 const provider = new GoogleAuthProvider();
 
 window.googleLogin = function() {
+  alert("Google login starting...");
   signInWithRedirect(auth, provider);
 };
   const analytics = getAnalytics(app);
