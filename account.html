@@ -188,7 +188,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+onAuthStateChanged(auth, (user) => {
+  const userEmail = document.getElementById("userEmail");
 
+  if (user) {
+    userEmail.textContent = "Logged in as: " + user.email;
+  } else {
+    userEmail.textContent = "Not logged in";
+  }
+});
 window.logoutUser = async function() {
   await signOut(auth);
   alert("Logout successful!");
