@@ -850,6 +850,24 @@ const provider = new GoogleAuthProvider();
 window.googleLogin = function() {
   signInWithRedirect(auth, provider);
 };
+    getRedirectResult(auth)
+  .then((result) => {
+    if (result && result.user) {
+      console.log("Google login successful:", result.user.email);
+    }
+  })
+  .catch((error) => {
+    console.error("Google login error:", error);
+    alert("Google login failed: " + error.message);
+  });
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("Logged in:", user.email);
+  } else {
+    console.log("Not logged in");
+  }
+});
   const analytics = getAnalytics(app);
 </script>
 </body>
