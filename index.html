@@ -363,9 +363,30 @@ oninput="searchListings()">
 
 </div>
 
-<button class="sell-btn" onclick="googleLogin()">
-  🔵 Continue with Google
+<button class="sell-btn" onclick="showLoginOptions()">
+  🔐 Login
 </button>
+  <div id="loginOptions" style="display:none; background:white; margin-top:15px; padding:20px; border-radius:12px;">
+
+  <h2>Login / Sign Up</h2>
+
+  <button onclick="googleLogin()" style="width:100%; padding:14px; margin-top:10px;">
+    🔵 Continue with Google
+  </button>
+
+  <button style="width:100%; padding:14px; margin-top:10px;">
+    📱 Continue with Phone Number
+  </button>
+
+  <button style="width:100%; padding:14px; margin-top:10px;">
+     Continue with Apple ID
+  </button>
+
+  <button style="width:100%; padding:14px; margin-top:10px;">
+    🔵 Continue with Facebook
+  </button>
+
+  </div>
   <div id="loginForm" style="display:none; background:white; margin-top:25px; padding:20px; border-radius:12px;">
 
   <h2>Login / Sign Up</h2>
@@ -611,6 +632,15 @@ displayListings();
 
 </script>
 <script>
+  function showLoginOptions() {
+  const box = document.getElementById("loginOptions");
+
+  if (box.style.display === "none" || box.style.display === "") {
+    box.style.display = "block";
+  } else {
+    box.style.display = "none";
+  }
+  }
 function showLoginForm() {
   const form = document.getElementById("loginForm");
 
