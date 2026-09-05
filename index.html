@@ -382,7 +382,7 @@ oninput="searchListings()">
      Continue with Apple ID
   </button>
 
-  <button style="width:100%; padding:14px; margin-top:10px;">
+  <button onclick="facebookLogin()" style="width:100%; padding:14px; margin-top:10px;">
     🔵 Continue with Facebook
   </button>
 
@@ -828,10 +828,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/fireba
 import {
   getAuth,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signInWithPopup,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCXE8VXsK9olIImXh_XdvXVqXt-IKzaqRk",
   authDomain: "buysellu-d4db0.firebaseapp.com",
@@ -845,7 +845,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-
+const facebookProvider = new FacebookAuthProvider();
+  window.facebookLogin = async function() {
+  try {
+    const result = await signInWithPopup(auth, facebookProvider);
+    console.log("Facebook login successful:", result.user.email);
+    alert("Facebook login successful!");
+  } catch (error) {
+    console.error("Facebook login error:", error);
+    alert("Facebook login failed: " + error.message);
+  }
+};  
 window.googleLogin = async function() {
 
   try {
