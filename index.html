@@ -304,7 +304,9 @@ body{
         style="cursor:pointer;">
     👤 My Profile
   </span>
-
+<span onclick="toggleTopMenu()" style="cursor:pointer;">
+  ⋮
+</span>
     </div>
 
   </div>
@@ -312,7 +314,35 @@ body{
   <p>Buy • Sell • Discover</p>
 
 </header>
+<div id="topMenu" style="
+  display:none;
+  position:absolute;
+  top:70px;
+  right:15px;
+  background:white;
+  width:220px;
+  border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  z-index:10000;
+  overflow:hidden;
+">
 
+  <div onclick="window.location.href='account.html'"
+       style="padding:15px; cursor:pointer;">
+    ⚙️ Account
+  </div>
+
+  <div onclick="window.location.href='my-profile.html'"
+       style="padding:15px; cursor:pointer;">
+    👤 My Profile
+  </div>
+
+  <div style="padding:15px; cursor:pointer;"
+       onclick="alert('BuySellU - Buy • Sell • Discover')">
+    ℹ️ About BuySellU
+  </div>
+
+</div>
 <div class="container">
 
 <input
@@ -620,6 +650,15 @@ displayListings();
 
 </script>
 <script>
+  function toggleTopMenu() {
+  const menu = document.getElementById("topMenu");
+
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "block";
+  } else {
+    menu.style.display = "none";
+  }
+  }
   function showLoginOptions() {
   const box = document.getElementById("loginOptions");
 
