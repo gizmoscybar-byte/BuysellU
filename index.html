@@ -552,6 +552,27 @@ header,
     height:135px;
   }
   }
+  /* REMOVE EXTRA PROFILE BUTTON */
+.sell-btn{
+  display:none !important;
+}
+
+/* HEADER PROFILE ICON ONLY */
+.header-icons span:nth-child(3){
+  font-size:0 !important;
+  width:45px;
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #444;
+  border-radius:50%;
+}
+
+.header-icons span:nth-child(3)::before{
+  content:"👤";
+  font-size:27px;
+}
   </style>
 </head>
 
