@@ -656,12 +656,13 @@ header,
 </div>
 <div class="container">
 
-<input
-class="search"
-id="search"
-type="text"
-placeholder="Search for products..."
-oninput="searchListings()">
+<div class="search-box">
+  <span class="search-icon">🔍</span>
+  <input class="search" id="search" type="text"
+  placeholder="Search for products..."
+  oninput="searchListings()">
+  <button onclick="searchListings()">Search</button>
+</div>
 
 <div class="categories">
 
