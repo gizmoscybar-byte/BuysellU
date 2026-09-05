@@ -826,7 +826,8 @@ displayListings();
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
-  getAuth,
+  initializeAuth,
+browserPopupRedirectResolver,
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
@@ -843,7 +844,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = initializeAuth(app, {
+  popupRedirectResolver: browserPopupRedirectResolver
+});
 console.log("Firebase Auth ready");
 const provider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
