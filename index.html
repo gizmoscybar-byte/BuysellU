@@ -860,10 +860,20 @@ window.googleLogin = async function() {
 
 onAuthStateChanged(auth, (user) => {
 
+  const loginButton = document.querySelector(".sell-btn");
+  const loginOptions = document.getElementById("loginOptions");
+
   if (user) {
     console.log("Logged in:", user.email);
+
+    loginButton.style.display = "none";
+    loginOptions.style.display = "none";
+
   } else {
     console.log("Not logged in");
+
+    loginButton.style.display = "block";
+    loginOptions.style.display = "none";
   }
 
 });
