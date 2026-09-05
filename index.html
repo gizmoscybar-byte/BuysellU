@@ -573,6 +573,11 @@ header,
   content:"👤";
   font-size:27px;
 }
+  /* HIDE EXTRA MY PROFILE BUTTON */
+#profileSection + button,
+#profileSection ~ button[onclick*="my-profile"]{
+  display:none !important;
+}
   </style>
 </head>
 
