@@ -177,13 +177,13 @@ onclick="window.location.href='index.html'">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
-  getAuth,
+  initializeAuth,
+  browserPopupRedirectResolver,
   onAuthStateChanged,
   signOut,
   setPersistence,
   browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCXE8VXsK9olIImXh_XdvXVqXt-IKzaqRk",
   authDomain: "buysellu-d4db0.firebaseapp.com",
@@ -195,7 +195,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = initializeAuth(app, {
+  popupRedirectResolver: browserPopupRedirectResolver
+});
 
 setPersistence(auth, browserLocalPersistence)
   .then(() => {
