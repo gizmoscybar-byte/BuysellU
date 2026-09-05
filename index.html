@@ -596,7 +596,7 @@ header,
 }
   /* SEARCH BOX DESIGN */
 .search-box{
-  width:calc(100% - 2px);
+  width:100%;
   display:flex;
   align-items:center;
   box-sizing:border-box;
@@ -607,7 +607,19 @@ header,
   margin:10px 0 18px;
   box-shadow:0 0 12px rgba(255,61,0,.25);
 }
+.search-box{
+  position:relative;
+  overflow:hidden;
+}
 
+.search-box button{
+  position:absolute;
+  right:4px;
+  top:4px;
+  height:50px;
+  min-width:125px;
+  border-radius:28px;
+}
 .search-box .search-icon{
   font-size:27px;
   margin-right:10px;
