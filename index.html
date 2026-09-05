@@ -823,7 +823,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/fireba
 
 import {
   initializeAuth,
-browserPopupRedirectResolver,
+  browserLocalPersistence,
+  browserPopupRedirectResolver,
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged
@@ -840,6 +841,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = initializeAuth(app, {
+  persistence: browserLocalPersistence,
   popupRedirectResolver: browserPopupRedirectResolver
 });
 console.log("Firebase Auth ready");
