@@ -75,29 +75,6 @@
 
 <script>
 
-const savedPhoto = localStorage.getItem("buyselluProfilePhoto");
-
-if (savedPhoto) {
-  document.getElementById("profilePreview").src = savedPhoto;
-  document.getElementById("profilePreview").style.display = "block";
-}
-
-document.getElementById("profileName").value =
-  localStorage.getItem("buyselluProfileName") || "";
-
-document.getElementById("profileLocation").value =
-  localStorage.getItem("buyselluProfileLocation") || "";
-
-document.getElementById("profileAddress").value =
-  localStorage.getItem("buyselluProfileAddress") || "";
-
-document.getElementById("profilePhone").value =
-  localStorage.getItem("buyselluProfilePhone") || "";
-
-document.getElementById("profileEmail").value =
-  localStorage.getItem("buyselluProfileEmail") || "";
-
-
 document.getElementById("profilePhoto").addEventListener("change", function(event) {
 
   const file = event.target.files[0];
@@ -122,24 +99,33 @@ document.getElementById("profilePhoto").addEventListener("change", function(even
 
 
 function saveProfile() {
-
   const name = document.getElementById("profileName").value;
   const location = document.getElementById("profileLocation").value;
   const address = document.getElementById("profileAddress").value;
   const phone = document.getElementById("profilePhone").value;
-  const email = document.getElementById("profileEmail").value;
+  const email = document.getElementById("profileEmail").value.trim().toLowerCase();
 
   const preview = document.getElementById("profilePreview");
 
-  if (preview.src && preview.style.display !== "none") {
-    localStorage.setItem("buyselluProfilePhoto", preview.src);
+  if (!email) {
+    alert("Please login first.");
+    return;
   }
 
-  localStorage.setItem("buyselluProfileName", name);
-  localStorage.setItem("buyselluProfileLocation", location);
-  localStorage.setItem("buyselluProfileAddress", address);
-  localStorage.setItem("buyselluProfilePhone", phone);
-  localStorage.setItem("buyselluProfileEmail", email);
+  const profileData = {
+    name: name,
+    location: location,
+    address: address,
+    phone: phone,
+    email: email,
+    photo: ""
+  };
+
+  if (preview.src && preview.style.display !== "none") {
+    profileData.photo = preview.src;
+  }
+
+  localStorage.setItem("buyselluProfile_" + email, JSON.stringify(profileData));
 
   alert("Profile saved successfully! ✅");
 }
@@ -169,18 +155,41 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 setPersistence(auth, browserLocalPersistence).then(() => {
+onAuthStateChanged(auth, (user) => {
 
-  onAuthStateChanged(auth, (user) => {
+  if (user && user.email) {
 
-    const email = document.getElementById("profileEmail");
+    const email = user.email.trim().toLowerCase();
 
-    if (user && user.email) {
-      email.value = user.email;
-      email.readOnly = true;
+    const savedProfile = localStorage.getItem("buyselluProfile_" + email);
+
+    if (savedProfile) {
+
+      const profileData = JSON.parse(savedProfile);
+
+      document.getElementById("profileName").value = profileData.name || "";
+      document.getElementById("profileLocation").value = profileData.location || "";
+      document.getElementById("profileAddress").value = profileData.address || "";
+      document.getElementById("profilePhone").value = profileData.phone || "";
+      document.getElementById("profileEmail").value = email;
+
+      if (profileData.photo) {
+        const preview = document.getElementById("profilePreview");
+        preview.src = profileData.photo;
+        preview.style.display = "block";
+      }
+
+    } else {
+
+      document.getElementById("profileEmail").value = email;
+
     }
 
-  });
+    document.getElementById("profileEmail").readOnly = true;
 
+  }
+
+});
 });
 </script>
 </body>
