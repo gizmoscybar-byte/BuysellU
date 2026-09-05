@@ -159,7 +159,7 @@ body{
 
 </div>
 <div class="account-card">
-<button class="logout" onclick="logoutUser()">
+<button id="logoutBtn" class="logout" onclick="logoutUser()" style="display:none;">
 🔐 Login / Logout
 </button>
 </div>
@@ -211,11 +211,12 @@ setPersistence(auth, browserLocalPersistence)
         console.log("Logged in:", user.email);
 
         userEmail.textContent = "Logged in as: " + user.email;
-
+document.getElementById("logoutBtn").style.display = "block";
       } else {
         console.log("Not logged in");
 
         userEmail.textContent = "Not logged in";
+        document.getElementById("logoutBtn").style.display = "none";
       }
 
     });
