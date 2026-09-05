@@ -382,10 +382,6 @@ oninput="searchListings()">
      Continue with Apple ID
   </button>
 
-  <button onclick="facebookLogin()" style="width:100%; padding:14px; margin-top:10px;">
-    🔵 Continue with Facebook
-  </button>
-
   </div>
   <div id="loginForm" style="display:none; background:white; margin-top:25px; padding:20px; border-radius:12px;">
 
@@ -829,7 +825,6 @@ import {
   initializeAuth,
 browserPopupRedirectResolver,
   GoogleAuthProvider,
-  FacebookAuthProvider,
   signInWithPopup,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
@@ -849,17 +844,6 @@ const auth = initializeAuth(app, {
 });
 console.log("Firebase Auth ready");
 const provider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
-  window.facebookLogin = async function() {
-  try {
-    const result = await signInWithPopup(auth, facebookProvider);
-    console.log("Facebook login successful:", result.user.email);
-    alert("Facebook login successful!");
-  } catch (error) {
-    console.error("Facebook login error:", error);
-    alert("Facebook login failed: " + error.message);
-  }
-};  
 window.googleLogin = async function() {
 
   try {
