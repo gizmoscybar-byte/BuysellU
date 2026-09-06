@@ -963,6 +963,8 @@ card.onclick=function(event){
     return;
   }
 
+  localStorage.removeItem("buyselluSelectedProduct");
+
   localStorage.setItem(
     "buyselluSelectedProduct",
     JSON.stringify(item)
