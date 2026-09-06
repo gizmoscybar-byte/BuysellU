@@ -658,7 +658,7 @@ header,
 
   <div class="top-bar">
 
-    <div class="menu-icon">☰</div>
+    <div class="menu-icon" onclick="toggleTopMenu()" style="cursor:pointer;">☰</div>
 
     <h1>BuySellU</h1>
 
@@ -670,9 +670,6 @@ header,
         style="cursor:pointer;">
     👤 My Profile
   </span>
-<span onclick="toggleTopMenu()" style="cursor:pointer;">
-  ⋮
-</span>
     </div>
 
   </div>
@@ -684,7 +681,8 @@ header,
   display:none;
   position:absolute;
   top:70px;
-  right:15px;
+  left:15px;
+right:auto;
   background:white;
   width:220px;
   border-radius:12px;
