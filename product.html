@@ -103,7 +103,17 @@
     <div class="product-card">
 
       <img id="productImage" class="product-image" style="display:none;">
-
+<button id="favoriteBtn" onclick="toggleFavorite()" style="
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:1px solid #ff3d00;
+  border-radius:12px;
+  background:#111;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+">♡ Add to Favourite</button>
       <h2 id="productName">Product</h2>
 
       <div id="productPrice" class="price"></div>
@@ -204,7 +214,24 @@
     function callSeller() {
       alert("Call feature will be connected with seller phone number next.");
     }
+function toggleFavorite() {
+  let favorites = JSON.parse(localStorage.getItem("buyselluFavorites")) || [];
 
+  const index = favorites.findIndex(item =>
+    JSON.stringify(item) === JSON.stringify(product)
+  );
+
+  if (index === -1) {
+    favorites.push(product);
+    document.getElementById("favoriteBtn").innerHTML = "❤️ Favourite";
+    alert("Added to Favourite ❤️");
+  } else {
+    favorites.splice(index, 1);
+    document.getElementById("favoriteBtn").innerHTML = "♡ Add to Favourite";
+    alert("Removed from Favourite");
+  }
+
+  localStorage.setItem("buyselluFavorites", JSON.stringify(favorites));
   </script>
 
 </body>
