@@ -737,12 +737,8 @@ header,
 🏍️ Bikes
 </div>
 
-<div class="category" onclick="filterCategory('Fashion')">
-👕 Fashion
-</div>
-
-<div class="category" onclick="filterCategory('Home')">
-🏠 Home
+<div class="category" onclick="showMoreCategories()">
+  ➕ More
 </div>
 
 </div>
@@ -1281,8 +1277,11 @@ onAuthStateChanged(auth, (user) => {
     loginButton.style.display = "block";
     loginOptions.style.display = "none";
   }
-
 });
+    window.showMoreCategories = function(){
+  alert("More Categories\n\n👕 Fashion\n🏠 Home\n🪑 Furniture\n📚 Books\n🎮 Gaming\n⌚ Watches");
+};
+    
   </script>
 </body>
 </html>
