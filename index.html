@@ -1068,24 +1068,10 @@ function showLoginForm() {
   }
 }
 
-async function loginUser() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if (!email || !password) {
-    alert("Email and password enter karo.");
-    return;
-  }
-
+window.loginUser = async function() {
   try {
-    const { getAuth, signInWithEmailAndPassword } =
-      await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js");
-
-    const auth = getAuth();
-
-    await signInWithEmailAndPassword(auth, email, password);
-
-    alert("Login successful!");
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
   } catch (error) {
     alert("Login failed: " + error.message);
   }
