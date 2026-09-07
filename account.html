@@ -159,8 +159,12 @@ body{
 
 </div>
 <div class="account-card">
+<button id="loginBtn" class="logout" onclick="loginUser()">
+🔐 Login
+</button>
+
 <button id="logoutBtn" class="logout" onclick="logoutUser()" style="display:none;">
-🔐 Login / Logout
+🚪 Logout
 </button>
 </div>
 
@@ -182,7 +186,9 @@ import {
   onAuthStateChanged,
   signOut,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  GoogleAuthProvider,
+signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyCXE8VXsK9olIImXh_XdvXVqXt-IKzaqRk",
@@ -225,7 +231,14 @@ document.getElementById("logoutBtn").style.display = "block";
   .catch((error) => {
     console.error("Firebase error:", error);
   });
-
+window.loginUser = async function() {
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    alert("Login failed: " + error.message);
+  }
+};
 window.logoutUser = async function() {
 
   try {
