@@ -1070,12 +1070,18 @@ function showLoginForm() {
 
 window.loginUser = async function() {
   try {
+    const { getAuth, GoogleAuthProvider, signInWithPopup } =
+      await import("https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js");
+
+    const auth = getAuth();
     const provider = new GoogleAuthProvider();
+
     await signInWithPopup(auth, provider);
+
   } catch (error) {
     alert("Login failed: " + error.message);
   }
-}
+};
 
 async function signupUser() {
   const email = document.getElementById("email").value.trim();
