@@ -666,7 +666,7 @@ header,
   <span>♡</span>
   <span>🔔</span>
 
-  <span onclick="loginUser()" style="cursor:pointer;">
+  <span onclick="openHomeProfile()" style="cursor:pointer;">
 👤
   </span>
     </div>
@@ -1276,7 +1276,12 @@ window.googleLogin = async function() {
     alert("Google login failed: " + error.message);
 
   }
-
+window.openHomeProfile = function() {
+  if (auth.currentUser) {
+    window.location.href = "my-profile.html";
+  } else {
+    showLoginOptions();
+  }
 };
 
 onAuthStateChanged(auth, (user) => {
