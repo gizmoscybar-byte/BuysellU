@@ -218,11 +218,13 @@ setPersistence(auth, browserLocalPersistence)
       const userEmail = document.getElementById("userEmail");
 
       if (user) {
+        localStorage.setItem("buyselluLoggedIn", "true");
         console.log("Logged in:", user.email);
 
         userEmail.textContent = "Logged in as: " + user.email;
 document.getElementById("logoutBtn").style.display = "block";
       } else {
+        localStorage.removeItem("buyselluLoggedIn");
         console.log("Not logged in");
 
         userEmail.textContent = "Not logged in";
