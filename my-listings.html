@@ -150,7 +150,7 @@ onAuthStateChanged(auth, (user) => {
 
   const box = document.getElementById("myListings");
 
-  if (!user) {
+if (!user && localStorage.getItem("buyselluLoggedIn") !== "true") {
 
     box.innerHTML = `
       <div class="empty">
