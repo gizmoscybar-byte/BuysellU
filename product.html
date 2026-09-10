@@ -166,7 +166,20 @@ button{
 <p id="productDescription"></p>
 
 <div class="seller">
-
+<button id="soldBtn" onclick="markAsSold()" style="
+width:100%;
+padding:14px;
+margin:10px 0;
+border:1px solid #ff3d00;
+border-radius:12px;
+background:#ff3d00;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+">
+✓ Mark as Sold
+</button>
 <h3>👤 Seller</h3>
 
 <div>
@@ -203,7 +216,22 @@ const product = JSON.parse(
 );
 
 if(product){
+if(product.sold === true){
+  document.getElementById("soldBtn").style.display = "none";
 
+  const soldInfo = document.createElement("div");
+  soldInfo.innerHTML = "🔴 SOLD OUT";
+  soldInfo.style.cssText =
+    "background:#ff3d00;color:white;padding:14px;text-align:center;border-radius:12px;font-size:20px;font-weight:bold;margin-bottom:15px;";
+
+  document.querySelector(".product-card").insertBefore(
+    soldInfo,
+    document.getElementById("productName")
+  );
+
+  document.querySelector(".chat-btn").style.display = "none";
+  document.querySelector(".call-btn").style.display = "none";
+}
   document.getElementById("productName").innerText =
     product.name || "Product";
 
@@ -406,7 +434,38 @@ function showMoreProducts(){
 }
 
 showMoreProducts();
+function markAsSold() {
+  if (!product) return;
 
+  product.sold = true;
+
+  localStorage.setItem(
+    "buyselluSelectedProduct",
+    JSON.stringify(product)
+  );
+
+  let listings =
+    JSON.parse(localStorage.getItem("buyselluListings")) || [];
+
+  listings = listings.map(item => {
+    if (JSON.stringify(item) === JSON.stringify(product)) {
+      item.sold = true;
+    }
+    return item;
+  });
+
+  localStorage.setItem(
+    "buyselluListings",
+    JSON.stringify(listings)
+  );
+
+  document.getElementById("soldBtn").style.display = "none";
+
+  document.querySelector(".chat-btn").style.display = "none";
+  document.querySelector(".call-btn").style.display = "none";
+
+  alert("Product marked as SOLD ✅");
+}
 </script>
 
 </body>
