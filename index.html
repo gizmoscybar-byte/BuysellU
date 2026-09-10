@@ -852,7 +852,14 @@ placeholder="Describe your product"></textarea>
 let listings = JSON.parse(localStorage.getItem("buyselluListings")) || [];
 
 function showSellForm(){
+
+  if(!window.currentUser){
+    showLoginOptions();
+    return;
+  }
+
   document.getElementById("sellForm").style.display="block";
+
   document.getElementById("sellForm").scrollIntoView({
     behavior:"smooth"
   });
