@@ -165,12 +165,9 @@ if (!user && localStorage.getItem("buyselluLoggedIn") !== "true") {
 
     return;
   }
-
-
-  const listings =
-    JSON.parse(localStorage.getItem("buyselluListings")) || [];
-
-
+const listings =
+  (JSON.parse(localStorage.getItem("buyselluListings")) || [])
+  .filter(item => item.sold !== true);
   if (listings.length === 0) {
 
     box.innerHTML = `
