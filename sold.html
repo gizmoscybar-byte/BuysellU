@@ -120,15 +120,25 @@ body{
   </button>
 
 </div>
-
 <script>
 
-const listings =
-  JSON.parse(localStorage.getItem("buyselluListings")) || [];
+if (localStorage.getItem("buyselluLoggedIn") !== "true") {
+  document.getElementById("soldProducts").innerHTML = `
+    <div class="empty">
+      <h2>🔒 Login First</h2>
+      <p>Please login to view your sold products.</p>
+      <button onclick="window.location.href='account.html'">
+        Login
+      </button>
+    </div>
+  `;
+} else {
 
-const soldProducts =
-  listings.filter(item => item.sold === true);
+  const listings =
+    JSON.parse(localStorage.getItem("buyselluListings")) || [];
 
+  const soldProducts =
+    listings.filter(item => item.sold === true);
 const box =
   document.getElementById("soldProducts");
 
