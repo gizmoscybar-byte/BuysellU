@@ -115,7 +115,17 @@ h2{
 </div>
 
 <script>
-
+if (!window.currentUser) {
+  document.getElementById("myListings").innerHTML = `
+    <div class="empty">
+      <h3>🔒 Login First</h3>
+      <p>Please login to view your listings.</p>
+      <button onclick="window.location.href='index.html'">
+        Login
+      </button>
+    </div>
+  `;
+} else {
 const listings =
 JSON.parse(localStorage.getItem("buyselluListings")) || [];
 
