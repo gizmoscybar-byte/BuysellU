@@ -120,43 +120,84 @@ body{
   </button>
 
 </div>
-<script>
+<script type="module">
 
-if (localStorage.getItem("buyselluLoggedIn") !== "true") {
-  document.getElementById("soldProducts").innerHTML = `
-    <div class="empty">
-      <h2>🔒 Login First</h2>
-      <p>Please login to view your sold products.</p>
-      <button onclick="window.location.href='account.html'">
-        Login
-      </button>
-    </div>
-  `;
-} else {
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  initializeAuth,
+  browserLocalPersistence,
+  browserPopupRedirectResolver,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCXE8VXsK9oI1mXh_XdvXVqXt-IKzaqRk",
+  authDomain: "buysellu-d4db0.firebaseapp.com",
+  projectId: "buysellu-d4db0",
+  storageBucket: "buysellu-d4db0.firebasestorage.app",
+  messagingSenderId: "585565834703",
+  appId: "1:585565834703:web:724d291b435df758356ba",
+  measurementId: "G-JSV2BLP6HL"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = initializeAuth(app, {
+  persistence: browserLocalPersistence,
+  popupRedirectResolver: browserPopupRedirectResolver
+});
+
+
+onAuthStateChanged(auth, (user) => {
+
+  const box = document.getElementById("soldProducts");
+
+
+  if (!user) {
+
+    box.innerHTML = `
+      <div class="empty">
+        <h2>🔒 Login First</h2>
+        <p>Please login to view your sold products.</p>
+
+        <button onclick="window.location.href='account.html'">
+          Login
+        </button>
+      </div>
+    `;
+
+    return;
+  }
+
 
   const listings =
     JSON.parse(localStorage.getItem("buyselluListings")) || [];
 
+
   const soldProducts =
     listings.filter(item => item.sold === true);
-const box =
-  document.getElementById("soldProducts");
 
-if(soldProducts.length === 0){
 
-  box.innerHTML = `
-    <div class="empty">
-      <h2>No Sold Products</h2>
-      <p>Abhi koi product sold nahi hua.</p>
-    </div>
-  `;
+  if (soldProducts.length === 0) {
 
-}else{
+    box.innerHTML = `
+      <div class="empty">
+        <h2>No Sold Products</h2>
+        <p>Abhi koi product sold nahi hua.</p>
+      </div>
+    `;
+
+    return;
+  }
+
 
   soldProducts.forEach(item => {
 
-    const card =
-      document.createElement("div");
+    const card = document.createElement("div");
 
     card.className = "sold-card";
 
@@ -191,7 +232,7 @@ if(soldProducts.length === 0){
 
   });
 
-}
+});
 
 </script>
 
