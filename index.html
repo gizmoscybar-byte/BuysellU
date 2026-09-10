@@ -1290,12 +1290,14 @@ onAuthStateChanged(auth, (user) => {
   const loginOptions = document.getElementById("loginOptions");
 
   if (user) {
+    window.currentUser = user;
     console.log("Logged in:", user.email);
 
     loginButton.style.display = "none";
     loginOptions.style.display = "none";
 
   } else {
+    window.currentUser = null;
     console.log("Not logged in");
 
     loginButton.style.display = "block";
