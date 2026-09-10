@@ -150,13 +150,10 @@ const auth = initializeAuth(app, {
   persistence: browserLocalPersistence,
   popupRedirectResolver: browserPopupRedirectResolver
 });
-
-
 onAuthStateChanged(auth, (user) => {
 
   const box = document.getElementById("soldProducts");
-
-  if (!user) {
+if (localStorage.getItem("buyselluLoggedIn") !== "true") {
 
     box.innerHTML = `
       <div class="empty">
