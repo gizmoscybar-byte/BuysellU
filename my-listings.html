@@ -114,65 +114,109 @@ h2{
 
 </div>
 
-<script>
-if (!window.currentUser) {
-  document.getElementById("myListings").innerHTML = `
-    <div class="empty">
-      <h3>🔒 Login First</h3>
-      <p>Please login to view your listings.</p>
-      <button onclick="window.location.href='index.html'">
-        Login
-      </button>
-    </div>
-  `;
-} else {
-const listings =
-JSON.parse(localStorage.getItem("buyselluListings")) || [];
+<script type="module">
 
-const box =
-document.getElementById("myListings");
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-if(listings.length === 0){
+import {
+  initializeAuth,
+  browserLocalPersistence,
+  browserPopupRedirectResolver,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-  box.innerHTML = `
-    <div class="empty">
-      <h3>No listings yet</h3>
-      <p>Sell something and it will appear here.</p>
-    </div>
-  `;
 
-}else{
+const firebaseConfig = {
+  apiKey: "AIzaSyCXE8VXsK9oI1mXh_XdvXVqXt-IKzaqRk",
+  authDomain: "buysellu-d4db0.firebaseapp.com",
+  projectId: "buysellu-d4db0",
+  storageBucket: "buysellu-d4db0.firebasestorage.app",
+  messagingSenderId: "585565834703",
+  appId: "1:585565834703:web:724d291b435df758356ba",
+  measurementId: "G-JSV2BLP6HL"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = initializeAuth(app, {
+  persistence: browserLocalPersistence,
+  popupRedirectResolver: browserPopupRedirectResolver
+});
+
+
+onAuthStateChanged(auth, (user) => {
+
+  const box = document.getElementById("myListings");
+
+  if (!user) {
+
+    box.innerHTML = `
+      <div class="empty">
+        <h3>🔐 Login First</h3>
+        <p>Please login to view your listings.</p>
+
+        <button onclick="window.location.href='index.html'">
+          Login
+        </button>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const listings =
+    JSON.parse(localStorage.getItem("buyselluListings")) || [];
+
+
+  if (listings.length === 0) {
+
+    box.innerHTML = `
+      <div class="empty">
+        <h3>No listings yet</h3>
+        <p>Sell something and it will appear here.</p>
+      </div>
+    `;
+
+    return;
+  }
+
 
   listings.forEach(item => {
 
-    const card =
-    document.createElement("div");
+    const card = document.createElement("div");
 
     card.className = "card";
 
     card.innerHTML = `
       ${item.image ? `<img src="${item.image}">` : ""}
+
       <h3>${item.name}</h3>
-      <div class="price">₹${item.price}</div>
+
+      <div class="price">
+        ₹${item.price}
+      </div>
     `;
 
-    card.onclick = function(){
+
+    card.onclick = function() {
 
       localStorage.setItem(
         "buyselluSelectedProduct",
         JSON.stringify(item)
       );
 
-      window.location.href =
-      "product.html";
-
+      window.location.href = "product.html";
     };
+
 
     box.appendChild(card);
 
   });
 
-}
+});
 
 </script>
 
