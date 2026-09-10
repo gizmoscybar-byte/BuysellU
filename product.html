@@ -438,39 +438,116 @@ function markAsSold() {
 
   if (!product) return;
 
-  let listings =
-    JSON.parse(localStorage.getItem("buyselluListings")) || [];
+  const confirmBox = document.createElement("div");
 
-  listings = listings.map(item => {
+  confirmBox.style.cssText = `
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+  `;
 
-    if (
-  item.name === product.name &&
-  item.price === product.price &&
-  item.image === product.image
-) {
-  item.sold = true;
-    }
+  confirmBox.innerHTML = `
+    <div style="
+      background:white;
+      width:85%;
+      max-width:360px;
+      padding:25px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    ">
 
-    return item;
-  });
+      <h2 style="margin-top:0;">Mark as Sold?</h2>
 
-  product.sold = true;
+      <p style="font-size:16px;">
+        Are you sure you want to mark this product as SOLD?
+      </p>
 
-  localStorage.setItem(
-    "buyselluListings",
-    JSON.stringify(listings)
-  );
+      <div style="
+        display:flex;
+        gap:12px;
+        margin-top:20px;
+      ">
 
-  localStorage.setItem(
-    "buyselluSelectedProduct",
-    JSON.stringify(product)
-  );
+        <button id="soldNo" style="
+          flex:1;
+          padding:14px;
+          border:1px solid #ddd;
+          border-radius:12px;
+          background:#eee;
+          color:#111;
+          font-size:17px;
+          font-weight:bold;
+        ">
+          No
+        </button>
 
-  document.getElementById("soldBtn").style.display = "none";
-  document.querySelector(".chat-btn").style.display = "none";
-  document.querySelector(".call-btn").style.display = "none";
+        <button id="soldYes" style="
+          flex:1;
+          padding:14px;
+          border:0;
+          border-radius:12px;
+          background:#ff3d00;
+          color:white;
+          font-size:17px;
+          font-weight:bold;
+        ">
+          Yes
+        </button>
 
-  alert("Product marked as SOLD ✅");
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(confirmBox);
+
+  document.getElementById("soldNo").onclick = function() {
+    confirmBox.remove();
+  };
+
+  document.getElementById("soldYes").onclick = function() {
+
+    confirmBox.remove();
+
+    let listings =
+      JSON.parse(localStorage.getItem("buyselluListings")) || [];
+
+    listings = listings.map(item => {
+
+      if (
+        item.name === product.name &&
+        item.price === product.price &&
+        item.image === product.image
+      ) {
+        item.sold = true;
+      }
+
+      return item;
+    });
+
+    product.sold = true;
+
+    localStorage.setItem(
+      "buyselluListings",
+      JSON.stringify(listings)
+    );
+
+    localStorage.setItem(
+      "buyselluSelectedProduct",
+      JSON.stringify(product)
+    );
+
+    document.getElementById("soldBtn").style.display = "none";
+
+    document.querySelector(".chat-btn").style.display = "none";
+    document.querySelector(".call-btn").style.display = "none";
+
+    location.reload();
+  };
 }
 </script>
 
