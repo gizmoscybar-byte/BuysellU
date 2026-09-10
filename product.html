@@ -435,32 +435,38 @@ function showMoreProducts(){
 
 showMoreProducts();
 function markAsSold() {
+
   if (!product) return;
-
-  product.sold = true;
-
-  localStorage.setItem(
-    "buyselluSelectedProduct",
-    JSON.stringify(product)
-  );
 
   let listings =
     JSON.parse(localStorage.getItem("buyselluListings")) || [];
 
   listings = listings.map(item => {
-    if (JSON.stringify(item) === JSON.stringify(product)) {
-      item.sold = true;
+
+    if (
+  item.name === product.name &&
+  item.price === product.price &&
+  item.image === product.image
+) {
+  item.sold = true;
     }
+
     return item;
   });
+
+  product.sold = true;
 
   localStorage.setItem(
     "buyselluListings",
     JSON.stringify(listings)
   );
 
-  document.getElementById("soldBtn").style.display = "none";
+  localStorage.setItem(
+    "buyselluSelectedProduct",
+    JSON.stringify(product)
+  );
 
+  document.getElementById("soldBtn").style.display = "none";
   document.querySelector(".chat-btn").style.display = "none";
   document.querySelector(".call-btn").style.display = "none";
 
