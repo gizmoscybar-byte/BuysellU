@@ -94,9 +94,10 @@ button{
 
   <h2>📦 Sell Something</h2>
 
-  <input id="productName"
-    type="text"
-    placeholder="Product name">
+  <label>Product Name</label>
+<input id="productName"
+type="text"
+placeholder="Enter product name">
 
   <select id="category">
     <option value="">Select category</option>
@@ -116,20 +117,48 @@ button{
     type="text"
     placeholder="Location">
 
-  <textarea id="description"
-    rows="5"
-    placeholder="Describe your product"></textarea>
+  <label>Product Details</label>
+<textarea id="description"
+rows="5"
+placeholder="Enter product details"></textarea>
 
-  <label for="photo" class="photo-btn">
-    📷 Add Product Photo
-  </label>
+<label for="photo1" class="photo-btn">
+  📷 Add Photo 1
+</label>
 
-  <input id="photo"
-    type="file"
-    accept="image/*"
-    style="display:none;">
+<input id="photo1"
+  type="file"
+  accept="image/*"
+  capture="environment"
+  style="display:none;">
 
-  <img id="preview">
+<img id="preview1" class="preview">
+
+
+<label for="photo2" class="photo-btn">
+  📷 Add Photo 2
+</label>
+
+<input id="photo2"
+  type="file"
+  accept="image/*"
+  capture="environment"
+  style="display:none;">
+
+<img id="preview2" class="preview">
+
+
+<label for="photo3" class="photo-btn">
+  📷 Add Photo 3
+</label>
+
+<input id="photo3"
+  type="file"
+  accept="image/*"
+  capture="environment"
+  style="display:none;">
+
+<img id="preview3" class="preview">
 
   <button onclick="postListing()">
     📤 Post Listing
@@ -140,33 +169,90 @@ button{
   </button>
 
 </div>
-
 <script>
+document.getElementById("photo1").addEventListener("change", function(e){
+  previewPhoto(e, "preview1");
+});
 
-document.getElementById("photo").addEventListener("change", function(event){
+document.getElementById("photo2").addEventListener("change", function(e){
+  previewPhoto(e, "preview2");
+});
+
+document.getElementById("photo3").addEventListener("change", function(e){
+  previewPhoto(e, "preview3");
+});
+
+
+function previewPhoto(event, previewId){
 
   const file = event.target.files[0];
 
-  if(file){
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const preview = document.getElementById(previewId);
+
+    preview.src = e.target.result;
+    preview.style.display = "block";
+
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+function compressPhoto(file){
+
+  return new Promise((resolve) => {
 
     const reader = new FileReader();
 
     reader.onload = function(e){
 
-      const preview = document.getElementById("preview");
+      const img = new Image();
 
-      preview.src = e.target.result;
-      preview.style.display = "block";
+      img.onload = function(){
+
+        const canvas = document.createElement("canvas");
+
+        const maxWidth = 800;
+
+        const scale = Math.min(1, maxWidth / img.width);
+
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+
+        const ctx = canvas.getContext("2d");
+
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        resolve(
+          canvas.toDataURL("image/jpeg", 0.7)
+        );
+
+      };
+
+      img.src = e.target.result;
 
     };
 
     reader.readAsDataURL(file);
-  }
 
-});
+  });
+
+}
 
 
-function postListing(){
+async function postListing(){
 
   const name =
     document.getElementById("productName").value.trim();
@@ -183,8 +269,15 @@ function postListing(){
   const description =
     document.getElementById("description").value.trim();
 
-  const photo =
-    document.getElementById("photo").files[0];
+
+  const photo1 =
+    document.getElementById("photo1").files[0];
+
+  const photo2 =
+    document.getElementById("photo2").files[0];
+
+  const photo3 =
+    document.getElementById("photo3").files[0];
 
 
   if(!name || !category || !price || !location){
@@ -192,105 +285,61 @@ function postListing(){
     alert("Please fill all required details.");
 
     return;
+
+  }
+
+
+  const images = [];
+
+  if(photo1){
+    images.push(await compressPhoto(photo1));
+  }
+
+  if(photo2){
+    images.push(await compressPhoto(photo2));
+  }
+
+  if(photo3){
+    images.push(await compressPhoto(photo3));
   }
 
 
-  const saveListing = (image="") => {
-
-    let listings =
-      JSON.parse(
-        localStorage.getItem("buyselluListings")
-      ) || [];
+  let listings =
+    JSON.parse(
+      localStorage.getItem("buyselluListings")
+    ) || [];
 
 
-    listings.unshift({
+  listings.unshift({
 
-      name:name,
-      category:category,
-      price:price,
-      location:location,
-      description:description,
-      image:image
+    name: name,
 
-    });
+    category: category,
 
+    price: price,
 
-    localStorage.setItem(
-      "buyselluListings",
-      JSON.stringify(listings)
-    );
+    location: location,
 
+    description: description,
 
-    alert("Listing posted successfully! ✅");
+    image: images[0] || "",
 
-    window.location.href="index.html";
+    images: images
 
-  };
+  });
 
 
-  if(photo){
-
-    const reader = new FileReader();
-
-    reader.onload = function(e){
-
-      const img = new Image();
-
-      img.onload = function(){
-
-        const canvas =
-          document.createElement("canvas");
-
-        const maxWidth = 800;
-
-        const scale =
-          Math.min(1, maxWidth / img.width);
-
-        canvas.width =
-          img.width * scale;
-
-        canvas.height =
-          img.height * scale;
+  localStorage.setItem(
+    "buyselluListings",
+    JSON.stringify(listings)
+  );
 
 
-        const ctx =
-          canvas.getContext("2d");
+  alert("Listing posted successfully! ✅");
 
-        ctx.drawImage(
-          img,
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
-
-
-        const compressedImage =
-          canvas.toDataURL(
-            "image/jpeg",
-            0.7
-          );
-
-
-        saveListing(compressedImage);
-
-      };
-
-      img.src=e.target.result;
-
-    };
-
-    reader.readAsDataURL(photo);
-
-  }else{
-
-    saveListing();
-
-  }
+  window.location.href = "index.html";
 
 }
-
 </script>
-
 </body>
 </html>
