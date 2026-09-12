@@ -149,7 +149,7 @@ button{
 
 <div class="product-card">
 
-<img id="productImage" class="product-image" style="display:none;">
+<div id="productImages"></div>
 
 <button id="favoriteBtn" class="favorite-btn" onclick="toggleFavorite()">
 ♡ Add to Favourite
@@ -246,15 +246,39 @@ if(product.sold === true){
 
   document.getElementById("productDescription").innerText =
     product.description || "No description available.";
+if(product.images && product.images.length){
 
-  if(product.image){
+  const box = document.getElementById("productImages");
 
-    const image =
-      document.getElementById("productImage");
+  product.images.forEach(function(src){
 
-    image.src = product.image;
-    image.style.display = "block";
-  }
+    const image = document.createElement("img");
+
+    image.src = src;
+    image.style.width = "100%";
+    image.style.maxHeight = "400px";
+    image.style.objectFit = "contain";
+    image.style.borderRadius = "12px";
+    image.style.marginBottom = "10px";
+
+    box.appendChild(image);
+  });
+
+}else if(product.image){
+
+  const box = document.getElementById("productImages");
+
+  const image = document.createElement("img");
+
+  image.src = product.image;
+
+  image.style.width = "100%";
+  image.style.maxHeight = "400px";
+  image.style.objectFit = "contain";
+  image.style.borderRadius = "12px";
+
+  box.appendChild(image);
+}
 }
 
 
