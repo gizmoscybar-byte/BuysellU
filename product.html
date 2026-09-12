@@ -246,25 +246,69 @@ if(product.sold === true){
 
   document.getElementById("productDescription").innerText =
     product.description || "No description available.";
+
 if(product.images && product.images.length){
 
   const box = document.getElementById("productImages");
+
+  box.style.position = "relative";
+  box.style.width = "100%";
+  box.style.overflow = "hidden";
+  box.style.borderRadius = "12px";
+
+  const slider = document.createElement("div");
+
+  slider.style.display = "flex";
+  slider.style.transition = "transform 0.3s ease";
+  slider.style.width = (product.images.length * 100) + "%";
 
   product.images.forEach(function(src){
 
     const image = document.createElement("img");
 
     image.src = src;
-    image.style.width = "100%";
+
+    image.style.width = (100 / product.images.length) + "%";
     image.style.maxHeight = "400px";
     image.style.objectFit = "contain";
-    image.style.borderRadius = "12px";
-    image.style.marginBottom = "10px";
+    image.style.flexShrink = "0";
 
-    box.appendChild(image);
+    slider.appendChild(image);
+
   });
 
-}else if(product.image){
+  box.appendChild(slider);
+
+  let current = 0;
+  let startX = 0;
+
+  box.addEventListener("touchstart", function(e){
+    startX = e.touches[0].clientX;
+  });
+
+  box.addEventListener("touchend", function(e){
+
+    const endX = e.changedTouches[0].clientX;
+    const difference = startX - endX;
+
+    if(Math.abs(difference) > 50){
+
+      if(difference > 0 && current < product.images.length - 1){
+        current++;
+      }
+
+      if(difference < 0 && current > 0){
+        current--;
+      }
+
+      slider.style.transform =
+"translateX(-" + (current * (100 / product.images.length)) + "%)";
+    }
+
+  });
+
+}
+else if(product.image){
 
   const box = document.getElementById("productImages");
 
@@ -278,10 +322,9 @@ if(product.images && product.images.length){
   image.style.borderRadius = "12px";
 
   box.appendChild(image);
+
 }
 }
-
-
 /* Seller */
 
 const sellerName =
