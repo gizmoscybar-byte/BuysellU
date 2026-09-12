@@ -278,7 +278,22 @@ if(product.images && product.images.length){
   });
 
   box.appendChild(slider);
+const counter = document.createElement("div");
 
+counter.innerText = "1 / " + product.images.length;
+
+counter.style.position = "absolute";
+counter.style.bottom = "10px";
+counter.style.left = "50%";
+counter.style.transform = "translateX(-50%)";
+counter.style.background = "rgba(0,0,0,0.6)";
+counter.style.color = "white";
+counter.style.padding = "5px 12px";
+counter.style.borderRadius = "20px";
+counter.style.fontSize = "14px";
+counter.style.zIndex = "10";
+
+box.appendChild(counter);
   let current = 0;
   let startX = 0;
 
@@ -303,6 +318,7 @@ if(product.images && product.images.length){
 
       slider.style.transform =
 "translateX(-" + (current * (100 / product.images.length)) + "%)";
+      counter.innerText = (current + 1) + " / " + product.images.length;
     }
 
   });
