@@ -430,17 +430,33 @@ if(product){
 
 function openChat(){
 
-  localStorage.setItem(
-    "buyselluChatSellerName",
-    sellerName
-  );
+  let chats =
+    JSON.parse(
+      localStorage.getItem("buyselluChats") || "{}"
+    );
+
+  if(!chats[sellerName]){
+
+    chats[sellerName] = {
+      photo: sellerPhoto,
+      messages: []
+    };
+
+  }else{
+
+    chats[sellerName].photo =
+      sellerPhoto || chats[sellerName].photo;
+
+  }
 
   localStorage.setItem(
-    "buyselluChatSellerPhoto",
-    sellerPhoto
+    "buyselluChats",
+    JSON.stringify(chats)
   );
 
-  window.location.href="chat.html";
+  window.location.href =
+    "chat.html?seller=" +
+    encodeURIComponent(sellerName);
 }
 
 
