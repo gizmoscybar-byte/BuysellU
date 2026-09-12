@@ -1,170 +1,520 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BuySellU - Chat</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-    }
+<title>BuySellU - Chat</title>
 
-    .header {
-      background: #111;
-      color: white;
-      padding: 18px;
-      text-align: center;
-    }
+<style>
+*{
+  box-sizing:border-box;
+}
 
-    .chat-box {
-      max-width: 600px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  color:#111;
+}
 
-    #messages {
-      min-height: 250px;
-      max-height: 400px;
-      overflow-y: auto;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 10px;
-      margin: 15px 0;
-    }
+.header{
+  background:#111;
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+}
 
-    .message {
-      background: #f1f1f1;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 8px 0;
-    }
+.header h1{
+  margin:0;
+  font-size:30px;
+}
 
-    #chatMessage {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 13px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
+.header p{
+  margin:8px 0 0;
+  font-size:18px;
+  color:#ddd;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+/* Chat List */
 
-    .send {
-      background: #111;
-      color: white;
-    }
+#chatList{
+  max-width:650px;
+  margin:20px auto;
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+}
 
-    .back {
-      background: white;
-      border: 1px solid #ddd;
-    }
-  </style>
+.chat-item{
+  display:flex;
+  align-items:center;
+  padding:15px;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+.chat-item:hover{
+  background:#f7f7f7;
+}
+
+.chat-photo{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ddd;
+  margin-right:14px;
+}
+
+.chat-info{
+  flex:1;
+}
+
+.chat-name{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.last-message{
+  color:#777;
+  margin-top:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.chat-time{
+  font-size:12px;
+  color:#999;
+}
+
+/* Empty */
+
+.empty{
+  text-align:center;
+  padding:60px 20px;
+  color:#777;
+}
+
+/* Individual Chat */
+
+#conversation{
+  display:none;
+  max-width:650px;
+  margin:20px auto;
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.chat-header{
+  display:flex;
+  align-items:center;
+  padding:15px;
+  background:#111;
+  color:white;
+}
+
+.back{
+  font-size:25px;
+  margin-right:15px;
+  cursor:pointer;
+}
+
+.chat-header-photo{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ddd;
+  margin-right:12px;
+}
+
+.chat-header-name{
+  font-size:18px;
+  font-weight:bold;
+}
+
+#messages{
+  min-height:400px;
+  max-height:500px;
+  overflow-y:auto;
+  padding:15px;
+  background:#f5f5f5;
+}
+
+.message{
+  max-width:75%;
+  padding:11px 14px;
+  margin:8px 0;
+  border-radius:15px;
+  background:#e5e5e5;
+}
+
+.message.you{
+  margin-left:auto;
+  background:#111;
+  color:white;
+}
+
+.message-time{
+  font-size:10px;
+  opacity:.7;
+  margin-top:4px;
+}
+
+.send-box{
+  display:flex;
+  padding:12px;
+  gap:8px;
+  border-top:1px solid #ddd;
+}
+
+#chatMessage{
+  flex:1;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:20px;
+  outline:none;
+  font-size:15px;
+}
+
+.send-btn{
+  width:auto;
+  margin:0;
+  padding:13px 20px;
+  border:0;
+  border-radius:20px;
+  background:#111;
+  color:white;
+  cursor:pointer;
+}
+
+.home-btn{
+  display:block;
+  max-width:650px;
+  margin:15px auto 30px;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  background:white;
+  text-align:center;
+  cursor:pointer;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="header">
-    <h1>BuySellU</h1>
-    <p>💬 Chat</p>
+<div class="header">
+  <h1>BuySellU</h1>
+  <p>💬 Chat</p>
+</div>
+
+<!-- CHAT LIST -->
+
+<div id="chatList"></div>
+
+<div class="home-btn" onclick="window.location.href='index.html'">
+  ← Back to Home
+</div>
+
+<!-- INDIVIDUAL CHAT -->
+
+<div id="conversation">
+
+  <div class="chat-header">
+
+    <div class="back" onclick="showChatList()">←</div>
+
+    <img id="chatHeaderPhoto" class="chat-header-photo">
+
+    <div id="chatHeaderName" class="chat-header-name">
+      Chat
+    </div>
+
   </div>
 
-  <div class="chat-box">
+  <div id="messages"></div>
 
-    <h2 id="sellerName">Seller</h2>
-
-    <div id="messages"></div>
+  <div class="send-box">
 
     <input
       id="chatMessage"
       type="text"
       placeholder="Write a message..."
+      onkeydown="if(event.key==='Enter') sendMessage()"
     >
 
-    <button class="send" onclick="sendMessage()">
-      📤 Send
-    </button>
-
-    <button class="back" onclick="window.location.href='index.html'">
-      ← Back to Home
+    <button class="send-btn" onclick="sendMessage()">
+      📤
     </button>
 
   </div>
 
+</div>
+
+
 <script>
 
-const sellerName =
-  localStorage.getItem("buyselluChatSellerName") || "Seller";
-
-document.getElementById("sellerName").innerText =
-  "💬 Chat with " + sellerName;
+let currentPerson = null;
 
 
-function sendMessage() {
+/* GET ALL CHATS */
 
-  const input = document.getElementById("chatMessage");
-  const message = input.value.trim();
+function getChats(){
 
-  if (message === "") {
-    alert("Please write a message.");
+  return JSON.parse(
+    localStorage.getItem("buyselluChats") || "{}"
+  );
+
+}
+
+
+/* SAVE ALL CHATS */
+
+function saveChats(chats){
+
+  localStorage.setItem(
+    "buyselluChats",
+    JSON.stringify(chats)
+  );
+
+}
+
+
+/* SHOW CHAT LIST */
+
+function showChatList(){
+
+  document.getElementById("conversation").style.display="none";
+
+  document.getElementById("chatList").style.display="block";
+
+  displayChats();
+
+}
+
+
+/* DISPLAY CHATS */
+
+function displayChats(){
+
+  const box=document.getElementById("chatList");
+
+  const chats=getChats();
+
+  box.innerHTML="";
+
+  const names=Object.keys(chats);
+
+  if(names.length===0){
+
+    box.innerHTML=`
+      <div class="empty">
+        💬<br><br>
+        No chats yet
+      </div>
+    `;
+
     return;
   }
 
-  const messages =
-    JSON.parse(localStorage.getItem("buyselluMessages") || "[]");
 
-  messages.push({
-    text: message,
-    time: new Date().toLocaleTimeString()
+  names.reverse().forEach(function(name){
+
+    const chat=chats[name];
+
+    const last=
+      chat.messages &&
+      chat.messages.length
+      ? chat.messages[chat.messages.length-1]
+      : null;
+
+
+    const item=document.createElement("div");
+
+    item.className="chat-item";
+
+
+    const photo =
+      chat.photo ||
+      "https://via.placeholder.com/100";
+
+
+    item.innerHTML=`
+
+      <img
+        class="chat-photo"
+        src="${photo}"
+      >
+
+      <div class="chat-info">
+
+        <div class="chat-name">
+          ${name}
+        </div>
+
+        <div class="last-message">
+          ${last ? last.text : "Start chatting"}
+        </div>
+
+      </div>
+
+      <div class="chat-time">
+        ${last ? last.time : ""}
+      </div>
+
+    `;
+
+
+    item.onclick=function(){
+
+      openChat(name);
+
+    };
+
+
+    box.appendChild(item);
+
   });
 
-  localStorage.setItem(
-    "buyselluMessages",
-    JSON.stringify(messages)
-  );
+}
 
-  input.value = "";
+
+/* OPEN CHAT */
+
+function openChat(name){
+
+  const chats=getChats();
+
+  currentPerson=name;
+
+
+  document.getElementById("chatList").style.display="none";
+
+  document.querySelector(".home-btn").style.display="none";
+
+  document.getElementById("conversation").style.display="block";
+
+
+  const chat=chats[name];
+
+
+  document.getElementById("chatHeaderName").innerText=name;
+
+  document.getElementById("chatHeaderPhoto").src =
+    chat.photo ||
+    "https://via.placeholder.com/100";
+
 
   displayMessages();
+
 }
 
 
-function displayMessages() {
+/* DISPLAY MESSAGES */
 
-  const messages =
-    JSON.parse(localStorage.getItem("buyselluMessages") || "[]");
+function displayMessages(){
 
-  const box = document.getElementById("messages");
+  const box=document.getElementById("messages");
 
-  box.innerHTML = "";
+  const chats=getChats();
 
-  messages.forEach(function(message) {
+  box.innerHTML="";
 
-    const msg = document.createElement("div");
 
-    msg.className = "message";
+  if(!currentPerson || !chats[currentPerson]){
 
-    msg.innerText =
-      "You: " + message.text + " (" + message.time + ")";
+    return;
 
-    box.appendChild(msg);
+  }
+
+
+  chats[currentPerson].messages.forEach(function(message){
+
+    const div=document.createElement("div");
+
+    div.className =
+      "message " +
+      (message.sender==="you" ? "you" : "");
+
+
+    div.innerHTML=`
+
+      <div>${message.text}</div>
+
+      <div class="message-time">
+        ${message.time}
+      </div>
+
+    `;
+
+
+    box.appendChild(div);
 
   });
+
+
+  box.scrollTop=box.scrollHeight;
+
 }
 
 
-displayMessages();
+/* SEND MESSAGE */
+
+function sendMessage(){
+
+  const input=document.getElementById("chatMessage");
+
+  const text=input.value.trim();
+
+
+  if(text===""){
+
+    return;
+
+  }
+
+
+  const chats=getChats();
+
+
+  if(!chats[currentPerson]){
+
+    chats[currentPerson]={
+      photo:"",
+      messages:[]
+    };
+
+  }
+
+
+  chats[currentPerson].messages.push({
+
+    text:text,
+
+    sender:"you",
+
+    time:new Date().toLocaleTimeString()
+
+  });
+
+
+  saveChats(chats);
+
+
+  input.value="";
+
+  displayMessages();
+
+}
+
+
+/* START */
+
+displayChats();
 
 </script>
 
