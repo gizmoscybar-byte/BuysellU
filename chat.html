@@ -514,7 +514,14 @@ function sendMessage(){
 
 /* START */
 
-displayChats();
+const params = new URLSearchParams(window.location.search);
+const seller = params.get("seller");
+
+if(seller){
+  openChat(decodeURIComponent(seller));
+}else{
+  displayChats();
+}
 
 </script>
 
