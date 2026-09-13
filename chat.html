@@ -369,11 +369,24 @@ function displayChats(){
     `;
 
 
-    item.onclick=function(){
+    item.addEventListener("click", function(){
 
-      openChat(name);
+  currentPerson = name;
 
-    };
+  document.getElementById("chatList").style.display = "none";
+  document.querySelector(".home-btn").style.display = "none";
+  document.getElementById("conversation").style.display = "block";
+
+  const chat = getChats()[name];
+
+  document.getElementById("chatHeaderName").innerText = name;
+
+  document.getElementById("chatHeaderPhoto").src =
+    chat.photo || "https://via.placeholder.com/100";
+
+  displayMessages();
+
+});
 
 
     box.appendChild(item);
