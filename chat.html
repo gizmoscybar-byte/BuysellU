@@ -283,8 +283,12 @@ let currentPerson = null;
 
 function getChats(){
 
+  const email =
+    localStorage.getItem("buyselluUserEmail") ||
+    "guest";
+
   return JSON.parse(
-    localStorage.getItem("buyselluChats") || "{}"
+    localStorage.getItem("buyselluChats_" + email) || "{}"
   );
 
 }
@@ -294,8 +298,12 @@ function getChats(){
 
 function saveChats(chats){
 
+  const email =
+    localStorage.getItem("buyselluUserEmail") ||
+    "guest";
+
   localStorage.setItem(
-    "buyselluChats",
+    "buyselluChats_" + email,
     JSON.stringify(chats)
   );
 
