@@ -430,9 +430,16 @@ if(product){
 
 function openChat(){
 
+  const email =
+    localStorage.getItem("buyselluUserEmail") ||
+    "guest";
+
+  const chatKey =
+    "buyselluChats_" + email;
+
   let chats =
     JSON.parse(
-      localStorage.getItem("buyselluChats") || "{}"
+      localStorage.getItem(chatKey) || "{}"
     );
 
   if(!chats[sellerName]){
@@ -445,18 +452,20 @@ function openChat(){
   }else{
 
     chats[sellerName].photo =
-      sellerPhoto || chats[sellerName].photo;
+      sellerPhoto ||
+      chats[sellerName].photo;
 
   }
 
   localStorage.setItem(
-    "buyselluChats",
+    chatKey,
     JSON.stringify(chats)
   );
 
   window.location.href =
     "chat.html?seller=" +
     encodeURIComponent(sellerName);
+
 }
 
 
