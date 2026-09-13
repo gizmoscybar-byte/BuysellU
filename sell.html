@@ -309,23 +309,37 @@ async function postListing(){
     ) || [];
 
 
-  listings.unshift({
+  const sellerName =
+  localStorage.getItem("buyselluProfileName") ||
+  "Unknown Seller";
 
-    name: name,
+const sellerPhoto =
+  localStorage.getItem("buyselluProfilePhoto") ||
+  "";
 
-    category: category,
+listings.unshift({
 
-    price: price,
+  name: name,
 
-    location: location,
+  category: category,
 
-    description: description,
+  price: price,
 
-    image: images[0] || "",
+  location: location,
 
-    images: images
+  description: description,
 
-  });
+  sellerName: sellerName,
+
+  sellerPhoto: sellerPhoto,
+
+  image: images[0] || "",
+
+  images: images,
+
+  sold: false
+
+});
 
 
   localStorage.setItem(
