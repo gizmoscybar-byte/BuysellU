@@ -228,10 +228,28 @@ body{
 
     <div class="back" onclick="showChatList()">←</div>
 
-    <img id="chatHeaderPhoto" class="chat-header-photo">
+    <div
+  onclick="openSellerProfile()"
+  style="
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    flex:1;
+  "
+>
 
-    <div id="chatHeaderName" class="chat-header-name">
-      Chat
+  <img
+    id="chatHeaderPhoto"
+    class="chat-header-photo"
+  >
+
+  <div
+    id="chatHeaderName"
+    class="chat-header-name"
+  >
+    Chat
+  </div>
+
     </div>
 
   </div>
@@ -523,8 +541,26 @@ function sendMessage(){
   displayMessages();
 
 }
+function openSellerProfile(){
 
+  if(!currentPerson){
+    return;
+  }
 
+  localStorage.setItem(
+    "buyselluSellerProfileName",
+    currentPerson
+  );
+
+  const chats = getChats();
+
+  localStorage.setItem(
+    "buyselluSellerProfilePhoto",
+    chats[currentPerson]?.photo || ""
+  );
+
+  window.location.href = "seller-profile.html";
+}
 /* START */
 
 const params = new URLSearchParams(window.location.search);
