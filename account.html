@@ -220,6 +220,7 @@ setPersistence(auth, browserLocalPersistence)
       if (user) {
         localStorage.setItem("buyselluLoggedIn", "true");
         localStorage.setItem("buyselluUserEmail", user.email);
+        localStorage.setItem("buyselluUserUid", user.uid);
         console.log("Logged in:", user.email);
 
         userEmail.textContent = "Logged in as: " + user.email;
@@ -227,6 +228,7 @@ document.getElementById("logoutBtn").style.display = "block";
       } else {
         localStorage.removeItem("buyselluLoggedIn");
         localStorage.removeItem("buyselluUserEmail");
+        localStorage.removeItem("buyselluUserUid");
         console.log("Not logged in");
 
         userEmail.textContent = "Not logged in";
