@@ -316,7 +316,9 @@ async function postListing(){
 const sellerPhoto =
   localStorage.getItem("buyselluProfilePhoto") ||
   "";
-
+const sellerUid =
+  localStorage.getItem("buyselluUserUid") ||
+  "";
 listings.unshift({
 
   name: name,
@@ -332,7 +334,7 @@ listings.unshift({
   sellerName: sellerName,
 
   sellerPhoto: sellerPhoto,
-
+sellerUid: sellerUid,
   image: images[0] || "",
 
   images: images,
