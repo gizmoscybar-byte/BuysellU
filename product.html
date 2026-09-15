@@ -344,11 +344,19 @@ else if(product.image){
 /* Seller */
 
 const sellerName =
-  localStorage.getItem("buyselluProfileName") ||
+  product?.sellerName ||
   "Unknown Seller";
 
 const sellerPhoto =
-  localStorage.getItem("buyselluProfilePhoto") ||
+  product?.sellerPhoto ||
+  "";
+
+const sellerUid =
+  product?.sellerUid ||
+  "";
+
+const currentUid =
+  localStorage.getItem("buyselluUserUid") ||
   "";
 
 document.getElementById("sellerName").innerText =
@@ -362,6 +370,16 @@ if(sellerPhoto){
   photo.src = sellerPhoto;
   photo.style.display = "inline-block";
 }
+
+
+/* Only Product Owner Can Mark as Sold */
+
+if(!product || !sellerUid || currentUid !== sellerUid){
+
+  document.getElementById("soldBtn").style.display =
+    "none";
+
+    }
 
 
 /* Favourite */
@@ -545,6 +563,11 @@ showMoreProducts();
 function markAsSold() {
 
   if (!product) return;
+
+  if (!sellerUid || !currentUid || currentUid !== sellerUid) {
+    alert("Only the product owner can mark this product as sold.");
+    return;
+  }
 
   const confirmBox = document.createElement("div");
 
