@@ -174,8 +174,14 @@ if (localStorage.getItem("buyselluLoggedIn") !== "true") {
     JSON.parse(localStorage.getItem("buyselluListings")) || [];
 
 
-  const soldProducts =
-    listings.filter(item => item.sold === true);
+const currentUid =
+  user.uid;
+
+const soldProducts =
+  listings.filter(item =>
+    item.sellerUid === currentUid &&
+    item.sold === true
+  );
 
 
   if (soldProducts.length === 0) {
