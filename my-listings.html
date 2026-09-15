@@ -166,6 +166,7 @@ if (!user && localStorage.getItem("buyselluLoggedIn") !== "true") {
     return;
   }
 const currentUid =
+  localStorage.getItem("buyselluUserUid") ||
   user.uid;
 
 const listings =
