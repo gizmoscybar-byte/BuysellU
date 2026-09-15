@@ -226,7 +226,14 @@ setPersistence(auth, browserLocalPersistence)
         userEmail.textContent = "Logged in as: " + user.email;
 document.getElementById("logoutBtn").style.display = "block";
 else {
-  console.log("Auth state not loaded yet");
+  localStorage.removeItem("buyselluLoggedIn");
+  localStorage.removeItem("buyselluUserEmail");
+  localStorage.removeItem("buyselluUserUid");
+
+  console.log("Not logged in");
+
+  userEmail.textContent = "Not logged in";
+  document.getElementById("logoutBtn").style.display = "none";
 }
 
     });
