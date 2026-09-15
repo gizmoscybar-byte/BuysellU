@@ -278,7 +278,9 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
-  getAuth
+  initializeAuth,
+  browserLocalPersistence,
+  browserPopupRedirectResolver
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
@@ -305,7 +307,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = initializeAuth(app, {
+  persistence: browserLocalPersistence,
+  popupRedirectResolver: browserPopupRedirectResolver
+});
 const db = getFirestore(app);
 
 window.buyselluFirebase = {
