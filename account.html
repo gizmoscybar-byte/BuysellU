@@ -224,7 +224,23 @@ setPersistence(auth, browserLocalPersistence)
         localStorage.setItem("buyselluLoggedIn", "true");
         localStorage.setItem("buyselluUserEmail", user.email);
         localStorage.setItem("buyselluUserUid", user.uid);
+let oldListings =
+  JSON.parse(localStorage.getItem("buyselluListings") || "[]");
 
+oldListings = oldListings.map(item => {
+
+  if(!item.sellerUid){
+    item.sellerUid = user.uid;
+  }
+
+  return item;
+
+});
+
+localStorage.setItem(
+  "buyselluListings",
+  JSON.stringify(oldListings)
+);
         console.log("Logged in:", user.email);
 
         userEmail.textContent = "Logged in as: " + user.email;
