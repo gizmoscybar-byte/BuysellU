@@ -175,6 +175,7 @@ if (localStorage.getItem("buyselluLoggedIn") !== "true") {
 
 
 const currentUid =
+  localStorage.getItem("buyselluUserUid") ||
   user.uid;
 
 const soldProducts =
